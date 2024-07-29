@@ -8,13 +8,12 @@ for _ in range(n):
     row = [int(num) for num in input().split()]
     table.append(row)
 
-x, y = [0, 0]
 dxs = [0, 1, 0, -1]
 dys = [1, 0, -1, 0]
 result = 0
 
-for row in range(n):
-    for col in range(n):
+for x in range(n):
+    for y in range(n):
         count = 0
 
         for dx, dy in zip(dxs, dys):
@@ -22,12 +21,7 @@ for row in range(n):
           
             if in_range(nx, ny, n) and table[nx][ny]:
                 count += 1
-        y += 1
-
         if count >= 3:
             result += 1
-
-    y = 0
-    x += 1
 
 print(result)
