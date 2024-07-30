@@ -20,7 +20,8 @@ for _ in range(M):
         if in_range(nx, ny, N):
             count += 1 if table[nx][ny] else 0
     
-    if count >= 3:
+    if count == 3:
         print(1)
         continue
+
     print(0)
