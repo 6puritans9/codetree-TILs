@@ -18,10 +18,10 @@ dx = [0, 1, -1, 0]
 dy = [-1, 0, 0, 1]
 
 direction = {
-    "U": 1,
+    "U": 2,
     "R": 3,
     "L": 0,
-    "D": 2
+    "D": 1
     }
 dir = direction[d]
 is_turning = False
