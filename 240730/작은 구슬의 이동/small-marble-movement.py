@@ -1,8 +1,8 @@
 def in_range(x, y, n):
     return x>0 and x<n or y>0 and y<n
 
-def turn(dir, n):
-    return ((n - 1) - dir)
+def turn(dir):
+    return (3 - dir)
 
 def move(dir, x, y):
     nx = x + dx[dir]
@@ -28,7 +28,7 @@ is_turning = False
 
 while t:
     if not in_range(x, y, n) and not is_turning:
-        dir = turn(dir, n)
+        dir = turn(dir)
         is_turning = True
     else:
         if is_turning:
