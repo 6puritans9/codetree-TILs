@@ -1,5 +1,5 @@
 def in_range(x, y, n):
-    return x>0 and x<n or y>0 and y<n
+    return 0 <= x < n and 0 <= y < n
 
 def turn(dir):
     return (3 - dir)
@@ -24,18 +24,14 @@ direction = {
     "D": 1
     }
 dir = direction[d]
-is_turning = False
 
-while t:
-    if not in_range(x, y, n) and not is_turning:
+for _ in range(t):
+    nx, ny = move(dir, x, y)
+
+    if not in_range(nx, ny, n):
         dir = turn(dir)
-        is_turning = True
     else:
-        if is_turning:
-            is_turning = False
+        x, y = nx, ny
 
-        x, y = move(dir, x, y)
-
-    t -= 1
 
 print(x + 1, y + 1, end=" ")
