@@ -2,6 +2,19 @@ def in_range(x, y, N):
     return 0 <= x < N and 0 <= y < N
 
 
+def get_start(k, n):
+    if k <= n:
+        x, y = 1, k
+    elif n < k <= 2*n:
+        x, y = k - n, n
+    elif 2*n < k <= 3*n:
+        x, y = n, 3*n - k + 1
+    else:
+        x, y = 4*n - k + 1, 1 
+
+    return [x-1, y-1]
+
+
 def turn(dir, str):
     ndir = None
 
@@ -35,9 +48,6 @@ def reflect(x, y, dir):
     nx = x + dxs[ndir]
     ny = y + dys[ndir]
 
-    # print(nx, ny)
-
-
     return [nx, ny, ndir]
 
 
@@ -63,7 +73,8 @@ if __name__ == "__main__":
     dxs = [1, 0, -1, 0]
     dys = [0, -1, 0, 1]
 
-    x, y = [(K - 1) // 4, ((K) % 4) - 1]
+    start = get_start(K, N)
+    x, y = start
     dir = (K - 1) // 4
     
     count = 0
