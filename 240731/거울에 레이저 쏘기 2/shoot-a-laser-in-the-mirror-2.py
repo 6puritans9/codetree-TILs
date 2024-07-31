@@ -28,14 +28,14 @@ def turn(dir, str):
 
 
 def reflect(x, y, dir):
-    print(x, y, dir)
+    # print(x, y, dir)
     ndir = turn(dir, table[x][y])
-    print(f"ndir: {ndir}")
+    # print(f"ndir: {ndir}")
 
     nx = x + dxs[ndir]
     ny = y + dys[ndir]
 
-    print(nx, ny)
+    # print(nx, ny)
 
 
     return [nx, ny, ndir]
@@ -60,10 +60,10 @@ if __name__ == "__main__":
         "W": 3
     }
 
-    dxs = [0, 1, 0, -1]
-    dys = [-1, 0, 1, 0]
+    dxs = [1, 0, -1, 0]
+    dys = [0, -1, 0, 1]
 
-    x, y = [(K - 1) // 4, ((K - 1) % 4) - 1]
+    x, y = [(K - 1) // 4, ((K) % 4) - 1]
     dir = (K - 1) // 4
     
     count = 0
@@ -73,6 +73,5 @@ if __name__ == "__main__":
         
         x, y, dir = nx, ny, ndir
         
-
 
     print(count)
