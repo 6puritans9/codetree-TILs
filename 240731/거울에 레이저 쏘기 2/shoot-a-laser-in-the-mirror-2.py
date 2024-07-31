@@ -3,48 +3,35 @@ def in_range(x, y, N):
 
 
 def get_start(k, n):
+    x, y, dir = 0, 0, 0
+    
     if k <= n:
-        x, y = 1, k
+        x, y = 0, k - 1
+        dir = 0
     elif n < k <= 2*n:
-        x, y = k - n, n
+        x, y = k - n - 1, n - 1
+        dir = 1
     elif 2*n < k <= 3*n:
-        x, y = n, 3*n - k + 1
+        x, y = n - 1, 3*n - k
+        dir = 2
     else:
-        x, y = 4*n - k + 1, 1 
+        x, y = 4*n - k, 0 
+        dir = 3
 
-    return [x-1, y-1]
+    return [x, y, dir]
 
 
-def turn(dir, str):
+def turn(dir, char):
     ndir = None
 
-    if str == "/":
-        if dir == 0:
-            ndir = 1
-        elif dir == 1:
-            ndir = 0
-        elif dir == 2:
-            ndir = 3
-        else:
-            ndir = 2
+    if char == "/":
+        return [1,0,3,2][dir]
     else:
-        if dir == 0:
-            ndir = 3
-        elif dir == 1:
-            ndir = 2
-        elif dir == 2:
-            ndir = 1
-        else:
-            ndir = 0
-
-    return ndir
+        return [3,2,1,0][dir]
 
 
 def reflect(x, y, dir):
-    # print(x, y, dir)
     ndir = turn(dir, table[x][y])
-    # print(f"ndir: {ndir}")
-
     nx = x + dxs[ndir]
     ny = y + dys[ndir]
 
@@ -53,31 +40,15 @@ def reflect(x, y, dir):
 
 if __name__ == "__main__":
     N = int(input())
-
-    input_list = []
-    table = []
-    for _ in range(N):
-        input_list.append(input())
-    for string in input_list:
-        table.append(list(string))
-
+    table = [list(input()) for _ in range(N)]
     K = int(input())
-
-    directions = {
-        "N": 0,
-        "E": 1,
-        "S": 2,
-        "W": 3
-    }
 
     dxs = [1, 0, -1, 0]
     dys = [0, -1, 0, 1]
 
-    start = get_start(K, N)
-    x, y = start
-    dir = (K - 1) // 4
-    
+    x, y, dir = get_start(K, N)
     count = 0
+
     while in_range(x, y, N):
         nx, ny, ndir = reflect(x, y, dir)
         count += 1
