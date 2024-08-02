@@ -15,17 +15,16 @@ def move(x, y, dir):
     return [nx, ny]
 
 
-
 n = int(input())
 table = [[0 for _ in range(n)] for _ in range(n)]
 
-x, y = n // 2, n // 2
+x, y = n - 1, n - 1
 dir = 0
 
 dxs = [0,-1,0,1]
-dys = [1,0,-1,0]
+dys = [-1,0,1,0]
 
-for i in range(1, n**2 + 1):
+for i in range(n ** 2, 0, -1):
     fill(x, y, i)
     nx, ny = move(x, y, dir)
 
