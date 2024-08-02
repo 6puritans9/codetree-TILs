@@ -21,9 +21,7 @@ dxs = [0,1,0,-1]
 dys = [1,0,-1,0]
 
 for i in range(n * m):
-    letter_code = (ord("A") + i) % (ord("Z") + 1)
-    if letter_code < ord("A"):
-        letter_code += ord("A")
+    letter_code = ord("A") + (i % 26)
     
     fill(x, y, letter_code)
     nx, ny = move(x, y, dir)
