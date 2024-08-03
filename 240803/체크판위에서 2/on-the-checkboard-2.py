@@ -1,42 +1,13 @@
-def get_result(pos1, pos2):   
-    x1, y1 = pos1
-    x2, y2 = pos2
+R, C = list(map(int, input().split()))
+grid = [input().split() for _ in range(R)]
 
-    if x1 == 0 or y1 == 0:
-        return 0
-
-    count = 0
-    for x in range(x1 + 1, x2):
-        for y in range(y1 + 1, y2):
-            if(x, y) not in blacks:
+x, y = 0, 0
+start_color = grid[0][0]
+count = 0
+if start_color != grid[-1][-1]:
+    for i in range(x+1, R):
+        for j in range(y+1, C):
+            if grid[i][j] != start_color:
                 count += 1
 
-    return count
-
-R, C = list(map(int, input().split()))
-grid = []
-blacks = []
-
-for i in range(R):
-    _string = input()
-    sub_grid = []
-    j = 0
-
-    for char in _string:
-        if char == "B":
-            blacks.append((i, j))
-        elif char == " ":
-            continue
-
-        j += 1
-        sub_grid.append(char)
-
-    grid.append(sub_grid)
-
-result = 0
-if grid[0][0] != grid[-1][-1]:
-    for i in range(len(blacks) - 1):
-        for j in range(i +1, len(blacks)):
-            result += get_result(blacks[i], blacks[j])
-
-print(result)
+print(count)
