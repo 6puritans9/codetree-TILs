@@ -10,12 +10,12 @@ def get_result(pos1, pos2):
     return count
 
 R, C = list(map(int, input().split()))
-grid = []
+# grid = []
 blacks = []
 
 for i in range(R):
     _string = input()
-    sub_grid = []
+    # sub_grid = []
     j = 0
 
     for char in _string:
@@ -25,9 +25,13 @@ for i in range(R):
             continue
 
         j += 1
-        sub_grid.append(char)
+    #     sub_grid.append(char)
 
-    grid.append(sub_grid)
+    # grid.append(sub_grid)
 
-result = get_result(blacks[0], blacks[1])
+result = 0
+for i in range(len(blacks) - 1):
+    for j in range(i +1, len(blacks)):
+        result += get_result(blacks[i], blacks[j])
+
 print(result)
