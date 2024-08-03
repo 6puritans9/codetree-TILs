@@ -34,7 +34,7 @@ for i in range(R):
     grid.append(sub_grid)
 
 result = 0
-if grid[-1][-1] == "B":
+if grid[0][0] != grid[-1][-1]:
     for i in range(len(blacks) - 1):
         for j in range(i +1, len(blacks)):
             result += get_result(blacks[i], blacks[j])
