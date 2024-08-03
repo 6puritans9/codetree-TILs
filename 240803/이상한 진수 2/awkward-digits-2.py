@@ -1,7 +1,7 @@
 a = list(map(int, input()))
 
 for idx, digit in enumerate(a):
-    if idx == 0:
+    if len(a) != 1 and idx == 0:
         continue
     
     if digit == 0:
