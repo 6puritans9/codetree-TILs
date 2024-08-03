@@ -4,7 +4,7 @@ def count_valid_paths(R, C, grid):
 
     def dfs(x, y, jump):
         if jump > 3 or x >= R or y >= C:
-            return
+            return 0
         if jump ==3 and x == R-1 and y == C-1:
             return 1
 
