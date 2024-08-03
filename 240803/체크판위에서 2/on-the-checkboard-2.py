@@ -5,7 +5,8 @@ def get_result(pos1, pos2):
     count = 0
     for x in range(x1 + 1, x2):
         for y in range(y1 + 1, y2):
-            count += 1
+            if(x, y) not in blacks:
+                count += 1
 
     return count
 
