@@ -1,26 +1,22 @@
-def is_carry(num1, num2):
-    while num1 > 0 or num2 > 0:
-        sub_num1 = num1 % 10
-        sub_num2 = num2 % 10
-        if sub_num1 + sub_num2 >= 10:
-            return True
-        num1 //= 10
-        num2 //= 10
-    return False
+def no_carry(a, b, c):
+    while a > 0 or b > 0 or c > 0:
+        digit_sum = (a % 10) + (b % 10) + (c % 10)
+        if digit_sum >= 10:
+            return False
+        a //= 10
+        b //= 10
+        c //= 10
+    return True
 
-# Input reading
 n = int(input())
 numbers = [int(input()) for _ in range(n)]
-
 answer = -1
 
-# Iterate over all combinations of three different numbers
-for i in range(n-2):
-    for j in range(i+1, n-1):
-        for k in range(j+1, n):
-            if not is_carry(numbers[i], numbers[j]) and not is_carry(numbers[j], numbers[k]) and not is_carry(numbers[i], numbers[k]):
-                candidate = numbers[i] + numbers[j] + numbers[k]
-                if candidate > answer:
-                    answer = candidate
+for i in range(n - 2):
+    for j in range(i + 1, n - 1):
+        for k in range(j + 1, n):
+            if no_carry(numbers[i], numbers[j], numbers[k]):
+                current_sum = numbers[i] + numbers[j] + numbers[k]
+                answer = max(answer, current_sum)
 
 print(answer)
