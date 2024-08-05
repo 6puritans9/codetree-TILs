@@ -14,6 +14,7 @@ numbers = [int(input()) for _ in range(n)]
 
 answer = -1
 
+# Iterate over all combinations of three different numbers
 for i in range(n-2):
     for j in range(i+1, n-1):
         for k in range(j+1, n):
