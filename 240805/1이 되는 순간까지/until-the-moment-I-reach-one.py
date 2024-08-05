@@ -9,4 +9,7 @@ def recursion(n):
 
 
 N = int(input())
-print(recursion(N))
+if N == 1:
+    print(0)
+else:
+    print(recursion(N))
