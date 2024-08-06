@@ -8,15 +8,15 @@ def check_status(table):
     # Helper Functions
     def check_hor(x, y, self_color):
         for i in range(1, 5):
-            if table[x+i][y] != self_color:
+            if table[x][y + i] != self_color:
                 return False
-            
+
         return True
         
 
     def check_ver(x, y, self_color):
         for i in range(1, 5):
-            if table[x][y+i] != self_color:
+            if table[x + i][y] != self_color:
                 return False
             
         return True
@@ -42,10 +42,17 @@ def check_status(table):
 
     def does_win(x, y):
         self_color = table[x][y]
-        if in_range(x+5, y+5) and check_hor(x, y, self_color) or check_ver(x,y, self_color) or check_dia_right(x, y, self_color) or check_dia_left(x, y, self_color):
-            return True
+        if in_range(x+5, y+5):
+            if check_hor(x, y, self_color):
+                return [True, [x, y+2]]
+            elif check_ver(x,y, self_color):
+                return [True, [x +2, y]]
+            elif check_dia_right(x, y, self_color):
+                return [True, [x+2, y+2]]
+            elif check_dia_left(x, y, self_color):
+                return [True, [x+2, y-2]]
         
-        return False
+        return [False, 0]
     
     # Logic
     for i, row in enumerate(table):
@@ -53,10 +60,12 @@ def check_status(table):
             cur_point = table[i][j]
 
             if cur_point:
-                if does_win(i, j):
-                    stone_in_the_middle = [i + 1, j + 3]
+                result = does_win(i,j)
+                win = result[0]
+                middle_pos = result[1]
 
-                    return {"color": cur_point, "coord": stone_in_the_middle}
+                if win:
+                    return {"color": cur_point, "coord": middle_pos}
 
     return 0
 
@@ -68,4 +77,4 @@ if not end_game:
 else:
     print(end_game["color"])
     for value in end_game["coord"]:
-        print(value, end=" ")
+        print(value + 1, end=" ")
