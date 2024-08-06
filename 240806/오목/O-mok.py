@@ -43,7 +43,7 @@ def check_status(table):
     def does_win(x, y):
         self_color = table[x][y]
         
-        if in_range(x, y+5) and check_hor(x, y, self_color):
+        if in_range(x, y+4) and check_hor(x, y, self_color):
             return [True, [x, y+2]]
         elif in_range(x+5, y) and check_ver(x,y, self_color):
             return [True, [x +2, y]]
