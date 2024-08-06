@@ -31,8 +31,8 @@ def check_status(table):
 
     
     def check_dia_left(x, y, self_color):
-        if not in_range(x, y-5):
-            return False
+        # if not in_range(x, y-5):
+        #     return False
 
         for i in range(1, 5):
             if table[x+i][y-i] != self_color:
@@ -42,15 +42,15 @@ def check_status(table):
 
     def does_win(x, y):
         self_color = table[x][y]
-        if in_range(x+5, y+5):
-            if check_hor(x, y, self_color):
-                return [True, [x, y+2]]
-            elif check_ver(x,y, self_color):
-                return [True, [x +2, y]]
-            elif check_dia_right(x, y, self_color):
-                return [True, [x+2, y+2]]
-            elif check_dia_left(x, y, self_color):
-                return [True, [x+2, y-2]]
+        
+        if in_range(x, y+5) and check_hor(x, y, self_color):
+            return [True, [x, y+2]]
+        elif in_range(x+5, y) and check_ver(x,y, self_color):
+            return [True, [x +2, y]]
+        elif in_range(x+5, y+5) and check_dia_right(x, y, self_color):
+            return [True, [x+2, y+2]]
+        elif in_range(x+5, y-5) and check_dia_left(x, y, self_color):
+            return [True, [x+2, y-2]]
         
         return [False, 0]
     
@@ -62,9 +62,10 @@ def check_status(table):
             if cur_point:
                 result = does_win(i,j)
                 win = result[0]
-                middle_pos = result[1]
 
                 if win:
+                    middle_pos = result[1]
+
                     return {"color": cur_point, "coord": middle_pos}
 
     return 0
