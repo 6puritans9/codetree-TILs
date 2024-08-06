@@ -31,9 +31,6 @@ def check_status(table):
 
     
     def check_dia_left(x, y, self_color):
-        # if not in_range(x, y-5):
-        #     return False
-
         for i in range(1, 5):
             if table[x+i][y-i] != self_color:
                 return False
@@ -45,11 +42,11 @@ def check_status(table):
         
         if in_range(x, y+4) and check_hor(x, y, self_color):
             return [True, [x, y+2]]
-        elif in_range(x+5, y) and check_ver(x,y, self_color):
+        elif in_range(x+4, y) and check_ver(x,y, self_color):
             return [True, [x +2, y]]
-        elif in_range(x+5, y+5) and check_dia_right(x, y, self_color):
+        elif in_range(x+4, y+4) and check_dia_right(x, y, self_color):
             return [True, [x+2, y+2]]
-        elif in_range(x+5, y-5) and check_dia_left(x, y, self_color):
+        elif in_range(x+4, y-4) and check_dia_left(x, y, self_color):
             return [True, [x+2, y-2]]
         
         return [False, 0]
