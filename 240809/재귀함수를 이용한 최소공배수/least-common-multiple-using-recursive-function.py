@@ -1,14 +1,13 @@
 def get_gcd(num1, num2):
     small, big = min(num1, num2), max(num1, num2)
-    if not big % small:
-        return big
     
-    for i in range(2, small + 1):
-        if not big % i:
-            return i
+    while small:
+        remainder = big % small
+        big, small = small, remainder
 
-    return 0
-
+    return big
+        
+        
 
 def get_lcm(numbers, n):
     index = n -1
@@ -17,11 +16,9 @@ def get_lcm(numbers, n):
         return cur_number
 
     lcm_so_far = get_lcm(numbers, n - 1)
-    gcd = get_gcd(cur_number, lcm_so_far)
-    if not gcd:
-        return cur_number * lcm_so_far
+    lcm = (lcm_so_far * cur_number) // get_gcd(lcm_so_far, cur_number)
 
-    return gcd * min(cur_number, lcm_so_far)
+    return lcm
 
 
 n = int(input())
