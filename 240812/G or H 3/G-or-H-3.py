@@ -2,8 +2,9 @@ def take_photo(peoples, peoples_size, photo_size):
     max_score = 0
 
     for i in range(1, peoples_size - photo_size + 1):
-        interval_score = sum(peoples[i:i+photo_size + 1])
-        max_score = max(max_score, interval_score)
+        if peoples[i]:
+            interval_score = sum(peoples[i:i+photo_size + 1])
+            max_score = max(max_score, interval_score) 
     
     return max_score
 
