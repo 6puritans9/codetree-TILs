@@ -1,4 +1,4 @@
-MAX_INDEX = 101
+MAX_INDEX = 10001
 
 N, K = list(map(int, input().split()))
 if K >= MAX_INDEX:
