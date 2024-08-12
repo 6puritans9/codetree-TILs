@@ -1,10 +1,9 @@
 def take_photo(peoples, peoples_size, photo_size):
     max_score = 0
 
-    for i in range(1, peoples_size):
-        if peoples[i]:
-            interval_score = sum(peoples[i:i+photo_size + 1])
-            max_score = max(max_score, interval_score) 
+    for i in range(peoples_size - photo_size + 1):
+        interval_score = sum(peoples[i:i+photo_size + 1])
+        max_score = max(max_score, interval_score) 
     
     return max_score
 
@@ -22,4 +21,4 @@ for _ in range(N):
     peoples[int(idx)] = score[char]
     last_person_index = max(int(idx), last_person_index)
 
-print(take_photo(peoples, last_person_index, K))
+print(take_photo(peoples, last_person_index + 1, K))
