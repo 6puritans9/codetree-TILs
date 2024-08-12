@@ -1,25 +1,21 @@
-def take_photo(peoples, peoples_size, photo_size):
-    max_score = 0
-
-    for i in range(peoples_size - photo_size + 1):
-        interval_score = sum(peoples[i:i+photo_size + 1])
-        max_score = max(max_score, interval_score) 
-    
-    return max_score
-
+MAX_INDEX = 101
 
 N, K = list(map(int, input().split()))
-peoples = [0] * 10001
-last_person_index = 0
-score = {
-    "G" : 1,
-    "H": 2
-}
+if K >= MAX_INDEX:
+    K = MAX_INDEX - 1
+
+peoples = [0] * MAX_INDEX
 
 for _ in range(N):
     idx, char = input().split()
     idx = int(idx)
-    peoples[idx] = 1 if char == "G" else 2
-    last_person_index = max(idx, last_person_index)
 
-print(take_photo(peoples, last_person_index + 1, K))
+    peoples[idx] = 1 if char == "G" else 2
+    
+max_sum = 0    
+for i in range(1, MAX_INDEX - K + 1):
+    cur_sum = sum(peoples[i:i+K+1])
+
+    max_sum = max(max_sum, cur_sum)
+
+print(max_sum)
