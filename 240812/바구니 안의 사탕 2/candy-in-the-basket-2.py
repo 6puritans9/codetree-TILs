@@ -1,9 +1,6 @@
 MAX_INDEX = 101
 
 N, K = list(map(int, input().split()))
-if K >= N:
-    K = N
-
 candies = [0] * MAX_INDEX
 
 for _ in range(N):
@@ -13,7 +10,7 @@ for _ in range(N):
     candies[pos] += amount
 
 max_sum = 0
-for i in range(1, N - K + 1):
+for i in range(1, (MAX_INDEX - K + 1)):
     current_sum = sum(candies[i:i + (K * 2 + 1)])
 
     max_sum = max(max_sum, current_sum)
