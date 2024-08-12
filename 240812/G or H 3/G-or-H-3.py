@@ -18,7 +18,8 @@ score = {
 
 for _ in range(N):
     idx, char = input().split()
-    peoples[int(idx)] = score[char]
-    last_person_index = max(int(idx), last_person_index)
+    idx = int(idx)
+    peoples[idx] = 1 if char == "G" else 2
+    last_person_index = max(idx, last_person_index)
 
 print(take_photo(peoples, last_person_index + 1, K))
