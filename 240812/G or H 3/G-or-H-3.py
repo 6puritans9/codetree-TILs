@@ -9,7 +9,7 @@ def take_photo(peoples, peoples_size, photo_size):
 
 
 N, K = list(map(int, input().split()))
-peoples = [0] * 101
+peoples = [0] * 10001
 last_person_index = 0
 score = {
     "G" : 1,
