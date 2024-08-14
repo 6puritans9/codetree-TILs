@@ -43,6 +43,7 @@ int main() {
 
                     if(actual_count1 != count1[i] || actual_count2 != count2[i]){
                         is_valid = 0;
+                        break;
                     }
                 }
 
