@@ -1,8 +1,8 @@
 devs = list(map(int, input().split()))
 total_sum = sum(devs)
 
-team1 = 0
-team2 = 0
+# team1 = 0
+# team2 = 0
 
 min_diff = float("inf")
 for i in range(5):
