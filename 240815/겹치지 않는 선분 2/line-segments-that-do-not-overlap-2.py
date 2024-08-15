@@ -1,17 +1,18 @@
-def is_crossed(left_dot, right_dot):
-    start_left_dot = left_dot[0]
-    end_left_dot = left_dot[1]
+def is_crossed(left_line, right_line):
+    start_left_line = left_line[0]
+    end_left_line = left_line[1]
 
-    start_right_dot = right_dot[0]
-    end_right_dot = right_dot[1]
+    start_right_line = right_line[0]
+    end_right_line = right_line[1]
 
-    if start_right_dot < end_left_dot and end_right_dot <= end_left_dot:
+    if start_right_line < end_left_line and end_right_line <= end_left_line:
         return True
 
     return False
 
 N = int(input())
 lines = [tuple(map(int, input().split())) for _ in range(N)]
+lines.sort()
 
 overlapping_lines = set()
 
