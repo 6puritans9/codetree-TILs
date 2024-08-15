@@ -39,6 +39,9 @@ for i in range(N):
             width = get_width(x1, x2, x3, y1, y2, y3)
             height = get_height(x1, x2, x3, y1, y2, y3)
 
-            max_area = max(max_area, width*height)
+            max_width = max(max_width, width)
+            max_height = max(max_height, height)
+
+    max_area = max(max_area, max_width * max_height)
 
 print(max_area)
