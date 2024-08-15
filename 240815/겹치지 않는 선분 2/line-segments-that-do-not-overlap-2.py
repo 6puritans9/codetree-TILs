@@ -1,14 +1,8 @@
-def is_crossed(left_line, right_line):
-    start_left_line = left_line[0]
-    end_left_line = left_line[1]
+def is_crossed(line1, line2):
+    x1_start, x1_end = line1
+    x2_start, x2_end = line2
 
-    start_right_line = right_line[0]
-    end_right_line = right_line[1]
-
-    if start_left_line <= start_right_line < end_left_line and end_right_line <= end_left_line:
-        return True
-
-    return False
+    return (x1_start < x2_start and x1_end > x2_end) or (x1_start > x2_start and x1_end < x2_end)
 
 N = int(input())
 lines = [tuple(map(int, input().split())) for _ in range(N)]
