@@ -1,7 +1,7 @@
 N = int(input())
 dots = [[int(num) for num in input().split()] for _ in range(N)]
 
-area = 0
+area = float("inf")
 for i in range(N):
     min_width = float("inf")
     min_height = float("inf")
@@ -22,6 +22,6 @@ for i in range(N):
     min_width = min(min_width, cur_width)
     min_height = min(min_height, cur_height)
 
-    area = min_width * min_height
+    area = min(area, min_width * min_height)
 
 print(area)
