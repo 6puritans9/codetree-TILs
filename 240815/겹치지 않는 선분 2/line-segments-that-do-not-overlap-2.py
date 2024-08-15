@@ -7,21 +7,20 @@ def is_crossed(left_dot, right_dot):
 
     if start_right_dot < end_left_dot and end_right_dot <= end_left_dot:
         return True
-    
+
     return False
 
-
 N = int(input())
-dots = [tuple(map(int, input().split())) for _ in range(N)]
-dots.sort()
+lines = [tuple(map(int, input().split())) for _ in range(N)]
 
-crossing_set = set()
+overlapping_lines = set()
+
 for i in range(N):
-    for j in range(i+1, N):
-        if not is_crossed(dots[i], dots[j]):
-            continue
-        
-        crossing_set.add(dots[i])
-        crossing_set.add(dots[j])
+    for j in range(i + 1, N):
+        if is_crossed(lines[i], lines[j]):
+            overlapping_lines.add(lines[i])
+            overlapping_lines.add(lines[j])
 
-print(len(crossing_set))
+non_overlapping_count = N - len(overlapping_lines)
+
+print(non_overlapping_count)
