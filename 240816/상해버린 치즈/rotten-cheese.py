@@ -1,38 +1,30 @@
-people, cheese, cheese_eaten, sick_people = tuple(map(int, input().split()))
+N, M, D, S = map(int, input().split())
 
-# people_idx, cheese_idx, eat_time
-cheese_info = [[int(num) for num in input().split()] for _ in range(cheese_eaten)]
-# people_idx, sick_time
-sick_info = [[int(num) for num in input().split()] for _ in range(sick_people)]
+cheese_info = []
+sick_info = []
 
-# how to solve
-# 1. validate bad cheese
-# 1-1. it can be narrowed down to less than sick people's eat_time(cheeses_eaten_idx)
+for _ in range(D):
+    p, m, t = map(int, input().split())
+    cheese_info.append((p, m, t))
 
-# 2. find those who had eaten bad cheese
-# 3. count the number of people(get rid of duplicates)
-# 4. validate innocent cheese which sick people didn't eat
+for _ in range(S):
+    p, t = map(int, input().split())
+    sick_info.append((p, t))
 
-# Get the bad cheese
-bad_cheese_candidates = [0] * (cheese + 1)
-for info_1 in sick_info:
-    sick_people_idx, sick_time = info_1
-    
-    for info_2 in cheese_info:
-        people_idx, cheese_idx, eat_time = info_2
+potential_bad_cheeses = set()
 
-        if people_idx == sick_people_idx and eat_time < sick_time:
-            bad_cheese_candidates[cheese_idx] += 1
-    
-# print(bad_cheese_candidates)
+for sick_person, sick_time in sick_info:
+    for person, cheese, eat_time in cheese_info:
+        if person == sick_person and eat_time < sick_time:
+            potential_bad_cheeses.add(cheese)
 
-sick_people_candidates = set()
-# Find who else had the bad cheese
-for info in cheese_info:
-    people_idx, cheese_idx, eat_time = info
-    
-    if bad_cheese_candidates[cheese_idx] >= sick_people:
-        sick_people_candidates.add(people_idx)
+max_sick_people = 0
 
-# print(sick_people_candidates)
-print(len(sick_people_candidates))
+for bad_cheese in potential_bad_cheeses:
+    sick_candidates = set()
+    for person, cheese, eat_time in cheese_info:
+        if cheese == bad_cheese:
+            sick_candidates.add(person)
+    max_sick_people = max(max_sick_people, len(sick_candidates))
+
+print(max_sick_people)
