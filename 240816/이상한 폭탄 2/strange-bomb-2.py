@@ -7,7 +7,7 @@ bombs = [int(input()) for _ in range(N)]
 
 max_num = 0
 for i, bomb_1 in enumerate(bombs):
-    for j in range(i+1, i+4):
+    for j in range(i+1, i+K+1):
         if not in_range(j, N):
             break
 
