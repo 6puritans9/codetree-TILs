@@ -1,33 +1,29 @@
 N, B = map(int, input().split())
-# price P(i); shipping S(i) per student
-table = [tuple(map(int, input().split()))for _ in range(N)]
+gifts = [tuple(map(int, input().split())) for _ in range(N)]
 
-# for i in range(N):
-#     for j in range(N - i - 1):
-#         if sum(table[j]) > sum(table[j+1]):
-#             table[j], table[j+1] = table[j+1], table[j]
+# Filter out gifts with odd prices
+gifts = [gift for gift in gifts if gift[0] % 2 == 0]
 
-table.sort(key=lambda x: x[0] + x[1])
+# Sort gifts by total cost
+gifts.sort(key=lambda x: x[0] + x[1])
 
 max_count = 0
-for i in range(N):
+
+for i in range(len(gifts)):
     budget = B
     count = 0
     
-    for j in range(N):
-        price, shipping = table[j]
+    for j, (price, shipping) in enumerate(gifts):
+        current_cost = price + shipping
+        if j == i:
+            current_cost = price // 2 + shipping
         
-        if i == j:
-            current_cost = (price // 2) + shipping
-        else:
-            current_cost = price + shipping
-
-        if budget < current_cost:
-            break
-        else:
+        if budget >= current_cost:
             budget -= current_cost
             count += 1
-
+        else:
+            break
+    
     max_count = max(max_count, count)
 
 print(max_count)
