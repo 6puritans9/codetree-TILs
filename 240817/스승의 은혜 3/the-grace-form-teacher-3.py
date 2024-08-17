@@ -1,29 +1,24 @@
+def max_gifts(N, B, gifts):
+    gifts.sort(key=lambda x: x[0] + x[1])
+    
+    def count_gifts(coupon_index):
+        budget = B
+        count = 0
+        for i, (price, shipping) in enumerate(gifts):
+            cost = price + shipping
+            if i == coupon_index:
+                cost = price // 2 + shipping
+            if budget >= cost:
+                budget -= cost
+                count += 1
+            else:
+                break
+        return count
+
+    return max(count_gifts(i) for i in range(N))
+
 N, B = map(int, input().split())
 gifts = [tuple(map(int, input().split())) for _ in range(N)]
+gifts = [gift for gift in gifts if gift[0] % 2 == 0]  # Filter out odd prices
 
-# Filter out gifts with odd prices
-gifts = [gift for gift in gifts if gift[0] % 2 == 0]
-
-# Sort gifts by total cost
-gifts.sort(key=lambda x: x[0] + x[1])
-
-max_count = 0
-
-for i in range(len(gifts)):
-    budget = B
-    count = 0
-    
-    for j, (price, shipping) in enumerate(gifts):
-        current_cost = price + shipping
-        if j == i:
-            current_cost = price // 2 + shipping
-        
-        if budget >= current_cost:
-            budget -= current_cost
-            count += 1
-        else:
-            break
-    
-    max_count = max(max_count, count)
-
-print(max_count)
+print(max_gifts(len(gifts), B, gifts))
