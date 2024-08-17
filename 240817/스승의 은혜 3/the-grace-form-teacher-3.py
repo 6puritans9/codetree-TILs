@@ -2,10 +2,12 @@ N, B = map(int, input().split())
 # price P(i); shipping S(i) per student
 table = [tuple(map(int, input().split()))for _ in range(N)]
 
-for i in range(N):
-    for j in range(N - i - 1):
-        if table[j] > table[j+1]:
-            table[j], table[j+1] = table[j+1], table[j]
+# for i in range(N):
+#     for j in range(N - i - 1):
+#         if table[j] > table[j+1]:
+#             table[j], table[j+1] = table[j+1], table[j]
+
+table.sort()
 
 max_count = 0
 for i in range(N):
