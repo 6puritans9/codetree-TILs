@@ -3,7 +3,7 @@ def get_work(temp, machine, C, G, H):
     
     if temp < min_temp:
         return C
-    elif min_temp <= temp < max_temp:
+    elif min_temp <= temp <= max_temp:
         return G
     else:
         return H
