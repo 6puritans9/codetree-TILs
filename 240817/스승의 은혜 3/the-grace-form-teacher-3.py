@@ -2,12 +2,10 @@ N, B = map(int, input().split())
 # price P(i); shipping S(i) per student
 table = [tuple(map(int, input().split()))for _ in range(N)]
 
-# for i in range(N):
-#     for j in range(N - i - 1):
-#         if table[j] > table[j+1]:
-#             table[j], table[j+1] = table[j+1], table[j]
-
-table.sort()
+for i in range(N):
+    for j in range(N - i - 1):
+        if sum(table[j]) > sum(table[j+1]):
+            table[j], table[j+1] = table[j+1], table[j]
 
 max_count = 0
 for i in range(N):
@@ -19,8 +17,7 @@ for i in range(N):
         current_cost = price + shipping
 
         if i == j and not budget < (price // 2 + shipping):
-            discounted = price // 2
-            current_cost = discounted + shipping
+            current_cost = price // 2 + shipping
             
             budget -= current_cost
             count += 1
@@ -29,7 +26,7 @@ for i in range(N):
         if budget < current_cost:
             break      
         
-        budget -= (price + shipping)
+        budget -= current_cost
         count += 1
 
     max_count = max(max_count, count)
