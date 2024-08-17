@@ -11,16 +11,16 @@ for i in range(N):
         price, shipping = table[j][0], table[j][1]
         current_cost = price + shipping
 
-        if budget < current_cost:
-            break
-
-        if i == j:
+        if i == j and not budget < (price // 2 + shipping):
             discounted = price // 2
             current_cost = discounted + shipping
             
             budget -= current_cost
             count += 1
             continue
+
+        if budget < current_cost:
+            break      
         
         budget -= (price + shipping)
         count += 1
