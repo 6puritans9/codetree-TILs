@@ -1,36 +1,34 @@
-N, M, D, S = map(int, input().split())
+people_count, cheese_count, len_eat_records, len_sick_records = tuple(map(int, input().split()))
 
-# Store eating records: (person, cheese, time)
-eating_records = [tuple(map(int, input().split())) for _ in range(D)]
+# person, cheese, eat_time
+eat_records = [tuple(map(int, input().split())) for _ in range(len_eat_records)]
+# person, sick_time
+sick_records = [tuple(map(int, input().split())) for _ in range(len_sick_records)]
 
-# Store sick records: (person, time)
-sick_records = [tuple(map(int, input().split())) for _ in range(S)]
+eat_records.sort()
+sick_records.sort()
 
-max_sick_people = 0
+# Get the bad cheese
+potential_bad_cheese = [0] * (cheese_count + 1)
+sick_idx = 0
+for person, cheese, time in eat_records:
+    if person != sick_records[sick_idx][0] and sick_idx + 1 < len_sick_records:
+        sick_idx += 1
 
-# Check each cheese
-potentially_sick = set()
-for cheese in range(1, M + 1):
-    is_valid_candidate = False
+    sick_person, sick_time = sick_records[sick_idx]
 
-    # Find all people who ate this cheese
-    for person, eaten_cheese, eat_time in eating_records:
-        if eaten_cheese == cheese:
-            potentially_sick.add(person)
+    if person == sick_person and time <= sick_time:
+        potential_bad_cheese[cheese] += 1
 
-    # Check if this cheese is consistent with sick records
-    for sick_person, sick_time in sick_records:
-        for person, eaten_cheese, eat_time in eating_records:
-            if (person == sick_person and 
-                eaten_cheese == cheese and 
-                eat_time == sick_time - 1):
-                is_valid_candidate = True
-                break
-        if is_valid_candidate:
-            break
 
-    # Update max_sick_people if this is a valid candidate
-    if is_valid_candidate or not sick_records:
-        max_sick_people = max(max_sick_people, len(potentially_sick))
+potential_patients = set()
+max_eaten_bad_cheese = max(potential_bad_cheese)
+for bad_cheese, eat_count in enumerate(potential_bad_cheese):
+    if eat_count != max_eaten_bad_cheese:
+        continue
 
-print(max_sick_people)
+    for person, cheese, time in eat_records:
+        if cheese == bad_cheese:
+            potential_patients.add(person)
+
+print(len(potential_patients))
