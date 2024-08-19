@@ -5,12 +5,15 @@ def is_interesting(num):
     for char in str_num:
         counts[int(char)] += 1
 
-    answer = 0
+    count_1 = 0
+    count_other = []
     for count in counts:
         if count == 1:
-            answer += 1
+            count_1 += 1
+        elif count != 0 and count != 1:
+            count_other.append(count)
 
-    if answer == 1:
+    if count_1 == 1 and len(count_other) == 1:
         return True
 
     return False
