@@ -2,13 +2,14 @@ def in_range(x, n):
     return 0 <= x <= n
 
 
-def does_s_come_first(pos, line, line_end):
+def does_s_come_first(pos, line):
+    END = 1001
     dx = [1, -1]
     right = pos
     left = pos
 
     while True:
-        if not in_range(right, line_end) and not in_range(left, line_end):
+        if not in_range(right, END) and not in_range(left, END):
             break
 
         if line[right] == "S" or line[left] == "S":
@@ -25,7 +26,7 @@ def does_s_come_first(pos, line, line_end):
 
 
 T, a, b = map(int, input().split())
-line = [None] * (b + 1)
+line = [None] * (1000 + 1)
 for _ in range(T):
     char, pos = input().split()
     pos = int(pos)
@@ -34,7 +35,7 @@ for _ in range(T):
 
 count = 0
 for k in range(a, b + 1):
-    if does_s_come_first(k, line, b):
+    if does_s_come_first(k, line):
         count += 1
 
 print(count)
