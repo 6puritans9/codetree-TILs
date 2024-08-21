@@ -27,6 +27,6 @@ for i in range(min_x, max_x + 1):
                 q4 += 1
             
         cur_max_quarter = max(q1,q2,q3,q4)
-        max_quarter = min(max_quarter, cur_max_quarter)
+    max_quarter = min(max_quarter, cur_max_quarter)
 
 print(max_quarter)
