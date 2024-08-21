@@ -7,10 +7,13 @@ for i, seat in enumerate(seats):
 
     if not seat:
         empty_seats.append(0)
-    elif seat and len(empty_seats) or i == N-1 and len(empty_seats):
+    elif seat and len(empty_seats):
         distance = (len(empty_seats) // 2) + 1
         max_distance = max(max_distance, distance)
         empty_seats.clear()
-   
+
+    if i == N-1 and len(empty_seats):
+        distance = (len(empty_seats) // 2)
+        max_distance = max(max_distance, distance) 
 
 print(max_distance)
