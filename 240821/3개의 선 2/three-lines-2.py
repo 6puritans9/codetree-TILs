@@ -1,55 +1,54 @@
-def can_cover_with_three_lines(dots):
-    # Extract unique x and y values from the dots
-    x_values = list(set(dot[0] for dot in dots))  # Vertical lines (x = constant)
-    y_values = list(set(dot[1] for dot in dots))  # Horizontal lines (y = constant)
-    
-    # We need to try all combinations where the total number of lines is 3
-    # We can have (3,0), (2,1), and (1,2) configurations of vertical and horizontal lines.
-    
-    # Case 1: 3 vertical lines
-    if len(x_values) >= 3:
-        for i in range(len(x_values)):
-            for j in range(i + 1, len(x_values)):
-                for k in range(j + 1, len(x_values)):
-                    line_comb = [x_values[i], x_values[j], x_values[k]]
-                    if all(dot[0] in line_comb for dot in dots):
+def verify_dots(dots):
+    xs = list(set(dot[0] for dot in dots))
+    ys = list(set(dot[1] for dot in dots))
+    len_xs, len_ys = len(xs), len(ys)
+
+    # x >= 3
+    if len_xs >= 3:
+        for i in range(len_xs):
+            for j in range(i+1, len_xs):
+                for k in range(j+1, len_xs):
+                    lines_x = [xs[i], xs[j], xs[k]]
+
+                    if all(dot[0] in lines_x for dot in dots):
                         return 1
 
-    # Case 2: 2 vertical lines and 1 horizontal line
-    if len(x_values) >= 2 and len(y_values) >= 1:
-        for i in range(len(x_values)):
-            for j in range(i + 1, len(x_values)):
-                for k in range(len(y_values)):
-                    line_comb_x = [x_values[i], x_values[j]]
-                    line_comb_y = [y_values[k]]
-                    if all(dot[0] in line_comb_x or dot[1] in line_comb_y for dot in dots):
+    # x >= 2 and y >= 1
+    if len_xs >= 2 and len_ys >= 1:
+        for i in range(len_xs):
+            for j in range(i+1, len_xs):
+                for k in range(len_ys):
+                    lines_x = [xs[i], xs[j]]
+                    lines_y = [ys[k]]
+
+                    if all(dot[0] in lines_x or dot[1] in lines_y for dot in dots):
                         return 1
 
-    # Case 3: 1 vertical line and 2 horizontal lines
-    if len(x_values) >= 1 and len(y_values) >= 2:
-        for i in range(len(x_values)):
-            for j in range(len(y_values)):
-                for k in range(j + 1, len(y_values)):
-                    line_comb_x = [x_values[i]]
-                    line_comb_y = [y_values[j], y_values[k]]
-                    if all(dot[0] in line_comb_x or dot[1] in line_comb_y for dot in dots):
+    # x >= 1 and y >= 2
+    if len_xs >= 1 and len_ys >= 2:
+        for i in range(len_xs):
+            for j in range(len_ys):
+                for k in range(j+1, len_ys):
+                    lines_x = [xs[i]]
+                    lines_y = [ys[j], ys[k]]
+
+                    if all(dot[0] in lines_x or dot[1] in lines_y for dot in dots):
                         return 1
 
-    # Case 4: 3 horizontal lines
-    if len(y_values) >= 3:
-        for i in range(len(y_values)):
-            for j in range(i + 1, len(y_values)):
-                for k in range(j + 1, len(y_values)):
-                    line_comb = [y_values[i], y_values[j], y_values[k]]
-                    if all(dot[1] in line_comb for dot in dots):
+    # y >= 3
+    if len_ys >= 3:
+        for i in range(len_ys):
+            for j in range(i+1, len_ys):
+                for k in range(j+1, len_ys):
+                    lines_y = [ys[i], ys[j], xs[k]]
+
+                    if all(dot[1] in lines_y for dot in dots):
                         return 1
 
     return 0
 
-# Input handling
+
 N = int(input())
 dots = [tuple(map(int, input().split())) for _ in range(N)]
 
-# Determine if 3 lines can cover all dots
-result = can_cover_with_three_lines(dots)
-print(result)
+print(verify_dots(dots))
