@@ -8,10 +8,10 @@ dots.sort(key = lambda x:x[1])
 min_y, max_y = dots[0][1], dots[-1][1]
 
 max_quarter = float("inf")
-for i in range(min_x, max_x + 1):
+for i in range(0, 101, 2):
     cur_max_quarter = 0
 
-    for j in range(min_y, min_y + 1):
+    for j in range(0, 101, 2):
         # get the actual quarter which dots are in
         q1, q2, q3, q4 = 0, 0, 0, 0
         for dot in dots:
