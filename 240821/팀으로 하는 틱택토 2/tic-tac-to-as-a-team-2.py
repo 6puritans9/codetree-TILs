@@ -13,6 +13,8 @@ def init():
 def play_game(grid, participants):
     count = 0
     participants_list = list(participants)
+    if len(participants_list) == 2:
+        return 1
 
     for i in range(len(participants)):
         for j in range(i + 1, len(participants)):
