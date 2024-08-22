@@ -11,7 +11,10 @@ def in_range(num, ranges):
 n = int(input())
 ranges = [[int(num) for num in input().split()] for _ in range(n)]
 
-for i in range(1, 11):
+i = 1
+while i:
     if in_range(i, ranges):
         print(i)
         break
+    
+    i += 1
