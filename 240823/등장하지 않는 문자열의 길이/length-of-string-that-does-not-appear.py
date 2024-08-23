@@ -13,7 +13,7 @@ def compare_string(_string, N):
                 if j + 1 + length > N - length or target_string == cur_string:
                     break
                 
-                answer = length
+            answer = length
         
         length += 1
 
@@ -24,4 +24,4 @@ N = int(input())
 _string = [char for char in input()]
 
 answer = compare_string(_string, N)
-print(answer + 1)
+print(answer)
