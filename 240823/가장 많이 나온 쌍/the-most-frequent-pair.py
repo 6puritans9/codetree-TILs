@@ -4,6 +4,9 @@ ranges = [[int(num) for num in input().split()] for _ in range(m)]
 frequency = [0] * (n + 1)
 for _range in ranges:
     x, y = _range
+    if x > y:
+        x, y = y, x
+
     frequency[x] += 1
     frequency[y] += 1
 
