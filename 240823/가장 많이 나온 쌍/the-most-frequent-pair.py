@@ -1,18 +1,21 @@
 n, m = map(int, input().split())
 ranges = [[int(num) for num in input().split()] for _ in range(m)]
+
+max_result = 0        
+for i, _range in enumerate(ranges):
+    a, b = _range
+    if a > b:
+        a, b = b, a
+    
+    result = 0
+    for j, _range2 in enumerate(ranges):
+        x, y = _range2
+        if x > y:
+            x, y = y, x
         
-frequency = [0] * (n + 1)
-for _range in ranges:
-    x, y = _range
-    if x > y:
-        x, y = y, x
+        if a==x and b ==y:
+            result += 1
+        
+    max_result = max(max_result, result)
 
-    frequency[x] += 1
-    frequency[y] += 1
-
-max_i, second_i = max(frequency), 0
-for i, value in enumerate(frequency, start = 1):
-    if second_i < value < max_i:
-        second_i = value
-
-print(second_i)
+print(max_result)
