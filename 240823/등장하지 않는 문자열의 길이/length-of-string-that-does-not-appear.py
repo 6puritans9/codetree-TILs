@@ -8,12 +8,12 @@ def compare_string(_string, N):
             target_string = _string[j:j + length]
 
             for k in range(j + 1, (j + 1)+length):
-                cur_string = _string[j+1:j+1+length]
+                cur_string = _string[k:k+length]
 
-                if j + 1 + length > N - length or target_string == cur_string:
+                if target_string == cur_string:
                     break
-                
-            answer = length
+                if k+length == N - 1:
+                    answer = length
         
         length += 1
 
