@@ -1,27 +1,16 @@
-def compare_string(_string, N):
-    length = 1
-    half_string_length = (N // 2) + 1
-
-    answer = 0
-    while length <= half_string_length:
-        for j in range(N - length):
-            target_string = _string[j:j + length]
-
-            for k in range(j + 1, (j + 1)+length):
-                cur_string = _string[k:k+length]
-
-                if target_string == cur_string:
-                    break
-                if k+length == N - 1:
-                    answer = length
-        
-        length += 1
-
-    return answer
-
+def min_unique_substring_length(N, _string):
+    for length in range(1, N + 1):
+        seen_substrings = set()
+        for i in range(N - length + 1):
+            substring = _string[i:i + length]
+            if substring in seen_substrings:
+                break
+            seen_substrings.add(substring)
+        else:
+            return length
 
 N = int(input())
-_string = [char for char in input()]
+_string = input()
 
-answer = compare_string(_string, N)
+answer = min_unique_substring_length(N, _string)
 print(answer)
