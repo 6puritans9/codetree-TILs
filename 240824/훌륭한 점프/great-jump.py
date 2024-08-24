@@ -17,7 +17,7 @@ n, k = map(int, input().split())
 numbers = list(map(int, input().split()))
 
 answer = 0
-for num in range(1, max(numbers)):
+for num in range(1, max(numbers) + 1):
     if is_possible(numbers, num, k):
         answer = max(answer, num)
 
