@@ -4,7 +4,7 @@ def in_range(pos):
 
 def is_bomb_in_range(bomb_pos, bomb_number, bombs):
     start = bomb_pos + 1
-    end = bomb_pos + bomb_number
+    end = bomb_pos + K
 
     for i in range(start, end + 1):
         if not in_range(i):
