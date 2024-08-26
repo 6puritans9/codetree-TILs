@@ -6,7 +6,7 @@ def is_bomb_in_range(bomb_pos, bomb_number, bombs):
     start = bomb_pos + 1
     end = bomb_pos + bomb_number
 
-    for i in range(start, end):
+    for i in range(start, end + 1):
         if not in_range(i):
             break
 
@@ -17,12 +17,21 @@ def is_bomb_in_range(bomb_pos, bomb_number, bombs):
     return False
 
 
+MAX_NUMBER = 1000000
+
 N, K = map(int, input().split())
 bombs = [int(input()) for _ in range(N)]
 
 result = 0
+bombs_to_explode = [0] * (MAX_NUMBER + 1)
 for i, bomb in enumerate(bombs):
+
     if is_bomb_in_range(i, bomb, bombs):
-        result += 1
+        bombs_to_explode[bomb] += 1
+
+    
+for i in range(MAX_NUMBER + 1):
+    if bombs_to_explode[i] > result:
+        result = i
 
 print(result)
