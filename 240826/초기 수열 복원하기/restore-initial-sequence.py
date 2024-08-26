@@ -12,7 +12,7 @@ for num in range(1, N + 1):
         diff = sums[idx - 1] - sequence[idx - 1]
         sequence[idx] = diff
 
-        if diff in used:
+        if diff in used or diff <= 0:
             break
         used.append(diff)
 
