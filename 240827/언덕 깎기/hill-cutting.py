@@ -12,11 +12,11 @@ for height in range(min_height, max_height + 1):
 
     if (max_height - height) - (min_height + height) <= 17:
         for hill in hills:
-            cost = pow(height,2) * 2
+            cost = pow(height,2)
 
             if hill == min_height or hill == max_height:
                 total_cost += cost
             
-        answer = min(answer, cost)
+        answer = min(answer, total_cost)
 
 print(answer)
