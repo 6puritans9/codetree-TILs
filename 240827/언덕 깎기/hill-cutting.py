@@ -1,22 +1,23 @@
-import math
+def min_cost_to_level_hills(hills):
+    hills.sort()
+    n = len(hills)
+    min_cost = float('inf')
+
+    for lower in range(min(hills), max(hills) - 16):
+        upper = lower + 17
+        cost = 0
+        for h in hills:
+            if h < lower:
+                cost += (lower - h) ** 2
+            elif h > upper:
+                cost += (h - upper) ** 2
+        min_cost = min(min_cost, cost)
+
+    return min_cost
+
 
 N = int(input())
 hills = [int(input()) for _ in range(N)]
-hills.sort()
 
-min_height, max_height = min(hills), max(hills)
-
-answer = math.inf
-for height in range(min_height, max_height + 1):
-    total_cost = 0
-
-    if (max_height - height) - (min_height + height) <= 17:
-        for hill in hills:
-            cost = pow(height,2)
-
-            if hill == min_height or hill == max_height:
-                total_cost += cost
-            
-        answer = min(answer, total_cost)
-
-print(answer)
+result = min_cost_to_level_hills(hills)
+print(result)
