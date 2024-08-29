@@ -1,7 +1,9 @@
 def does_intersect(start, end, lines):
     for k in range(start, end + 1):
-        if any(line[0] <= k <= line[1] for line in lines):
-            return True
+        for line in lines:
+            if line[0] > k or k < line[1]:
+                break
+        return True
     
     return False
 
