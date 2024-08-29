@@ -3,10 +3,11 @@ def get_intersection(a,b,c,d):
         return b-c
     elif a < d and c < a and b>d:
         return d-a
-    elif a < c and d < b:
+    elif a <= c and d <= b:
         return d-c
-    elif c < a and b < d:
+    elif c <= a and b <= d:
         return b-a
+    
     
     return 0
     
