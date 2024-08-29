@@ -1,23 +1,18 @@
 def does_intersect(start, end, lines):
-    for line in lines:
-        if line[0] > k or k < line[1]:
-            return False
-
-    return True
+    for k in range(start, end + 1):
+        if all(line[0] <= k <= line[1] for line in lines):
+            return True
+    return False
 
 
 n = int(input())
-lines = [tuple(int(num) for num in input().split()) for _ in range(n)]
+lines = [tuple(map(int, input().split())) for _ in range(n)]
 
-start, end = min(lines[0]), max(lines[1])
-intersection = False
+start = min(line[0] for line in lines)
+end = max(line[1] for line in lines)
 
-for k in range(start, end + 1):
-    intersection = does_intersect(start, end, lines)
-    if intersection:
-        break
-
-if intersection:
+result = does_intersect(start, end, lines)
+if result:
     print("Yes")
 else:
     print("No")
