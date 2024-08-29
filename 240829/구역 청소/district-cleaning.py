@@ -4,6 +4,8 @@ def get_intersection(a,b,c,d):
     elif d > a and c < a:
         return d-a
     
+    return 0
+    
 
 a, b = map(int, input().split())
 c, d = map(int, input().split())
