@@ -1,19 +1,17 @@
-def get_intersection(a,b,c,d):
-    if c < b and a < c and d>b:
-        return b-c
-    elif a < d and c < a and b>d:
-        return d-a
-    elif a <= c and d <= b:
-        return d-c
-    elif c <= a and b <= d:
-        return b-a
-    
-    
-    return 0
-    
+def is_intersect(a,b,c,d):
+    if b < c or d < a:
+        return False
+
+    return True
+
 
 a, b = map(int, input().split())
 c, d = map(int, input().split())
 
-cleaning_area = (b-a) + (d-c) - get_intersection(a,b,c,d)
+cleaning_area = 0
+if is_intersect(a,b,c,d):
+    cleaning_area = max(b,d) - min(a,c)
+else:
+    cleaning_area = (b-a) + (d-c)
+
 print(cleaning_area)
