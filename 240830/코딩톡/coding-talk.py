@@ -14,6 +14,13 @@ all_users = []
 for i in range(n):
     all_users.append(chr((ord("A") + i)))
 
+results = []
 for user in all_users:
     if user not in seen_users:
-        print(user, end = " ")
+        results.append(user)
+
+if p == 1 and not messages[p][1]:
+    print("")
+else:
+    for result in results:
+        print(result, end=" ")
