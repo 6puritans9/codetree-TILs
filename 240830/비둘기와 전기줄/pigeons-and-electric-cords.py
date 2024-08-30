@@ -1,6 +1,6 @@
 N = int(input())
 
-pigeons = [-1] * (N + 1)
+pigeons = [-1] * (11)
 states = [[int(num) for num in input().split()] for _ in range(N)]
 
 total_move = 0
