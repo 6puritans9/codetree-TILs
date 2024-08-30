@@ -19,7 +19,7 @@ for user in all_users:
     if user not in seen_users:
         results.append(user)
 
-if p == 1 and not messages[p][1]:
+if p == 1 and not messages[p- 1][1]:
     print("")
 else:
     for result in results:
