@@ -10,6 +10,7 @@ for state in states:
     if pigeons[pigeon] == -1:
         pigeons[pigeon] = pos
     elif pigeons[pigeon] != pos:
+        pigeons[pigeon] = pos
         total_move += 1
     
 print(total_move)
