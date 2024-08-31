@@ -7,11 +7,13 @@ for i, seat in enumerate(seats):
     if not seat:
         count += 1
     else:
-        counts.add(count)
+        if count:
+            counts.add(count + 1)
         count = 0
-    
+
 counts = sorted(list(counts))
 counts[-1] = counts[-1] // 2
+
 counts.sort()
 
-print(counts[-1])
+print(counts[0])
