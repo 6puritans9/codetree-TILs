@@ -5,7 +5,16 @@ dist2 = c - b
 
 count = 0
 while dist1 > 1 or dist2 > 1:
-    if dist1 == 1 or dist1 > dist2:
+    if dist1 == 1:
+        a = b - 2
+        a, b = b, a
+
+    elif dist2 == 1:
+        c = b - 2
+        c, b = b, c
+
+
+    elif dist1 > dist2:
         a = (b + c) // 2
         a, b = b, a
     else:
