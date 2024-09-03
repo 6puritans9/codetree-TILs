@@ -21,7 +21,7 @@ for result in results:
     elif did_pass_first and result[0] and result[1] == 1:
         ans = result[0]
         break
-    elif did_pass_first and reulst[0] and result[1] > 1:
+    elif did_pass_first and result[0] and result[1] > 1:
         break
 
 print(ans)
