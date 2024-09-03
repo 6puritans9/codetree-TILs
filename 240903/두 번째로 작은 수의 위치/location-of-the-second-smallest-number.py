@@ -20,5 +20,6 @@ for result in results:
         did_pass_first = True
     elif did_pass_first and result[0] and result[1] == 1:
         ans = result[0]
+        break
 
 print(ans)
