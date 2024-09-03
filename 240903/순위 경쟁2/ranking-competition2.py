@@ -4,7 +4,7 @@ n = int(input())
 score_a = 0
 score_b = 0
 best_score = -math.inf
-histories = [None]
+histories = [("A", "B")]
 
 for _ in range(n):
     student, score = input().split()
