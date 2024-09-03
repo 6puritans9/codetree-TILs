@@ -15,11 +15,11 @@ for _ in range(n):
     else:
         score_b += score
 
-    if score_a >= best_score and score_b >= best_score and score_a == score_b:
+    if score_a == score_b:
         histories.append(("A", "B"))
-    elif score_a >= best_score and score_a >= score_b:
+    elif score_a > score_b:
         histories.append(("A"))
-    elif score_b >= best_score and score_b >= score_a:
+    elif score_b > score_a:
         histories.append(("B"))
     best_score = max(best_score, score_a, score_b)
 
