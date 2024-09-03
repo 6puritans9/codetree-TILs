@@ -14,7 +14,7 @@ def get_min_dist(i, seats, n):
     dist = 0
 
     for i in range(n):
-        if not seats[i]:
+        if not seats[i] and i != 0 and i != n-1:
             dist += 1
         elif dist:
             min_dist = min(min_dist, dist + 1)
