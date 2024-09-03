@@ -10,17 +10,14 @@ def is_adjacent(i, seats):
 
 
 def get_min_dist(i, seats, n):
-    min_dist = math.inf
-    dist = 0
+    dist = math.inf
 
     for i in range(n):
-        if not seats[i] and i != 0 and i != n-1:
-            dist += 1
-        elif dist:
-            min_dist = min(min_dist, dist + 1)
-            dist = 0
+        for j in range(i + 1, n):
+            if seats[i] and seats[j]:
+                dist = min(dist, j - i)
 
-    return min_dist
+    return dist
 
 
 N = int(input())
