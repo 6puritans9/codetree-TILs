@@ -1,17 +1,33 @@
-N = int(input())
-numbers = list(map(int, input().split()))
+n = int(input())
+blocks = list(map(int, input().split()))
 
-odds = sum(1 for num in numbers if num % 2 == 1)
-evens = N - odds
+even = 0
+odd = 0
+for block in blocks:
+    if(block % 2 == 0):
+        even += 1
+    else:
+        odd += 1
 
-if evens == 0:
-    ans = odds // 2
-elif odds == 0:
-    ans = 1
-else:
-    ans = min(evens, odds) + 1
-    
-    if odds > evens:
-        ans += (odds - evens) // 2
+group_num = 0
+while True:
+    if group_num % 2 == 0:
+        if even:
+            even -= 1
+            group_num += 1
+        elif odd >= 2:
+            odd -= 2
+            group_num += 1
+        else:
+            if even > 0 or odd > 0:
+                group_num -= 1
 
-print(ans)
+            break
+    else:
+        if odd:
+            odd -= 1
+            group_num += 1
+        else:
+            break
+
+print(group_num)
