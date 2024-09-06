@@ -10,7 +10,7 @@ for number in numbers:
         odds.append(number)
         len_odds += 1
     else:
-        evens.append(nuamber)
+        evens.append(number)
         len_evens += 1
 
 ans = 0
