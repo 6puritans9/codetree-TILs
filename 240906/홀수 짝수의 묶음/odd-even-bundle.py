@@ -1,29 +1,17 @@
 N = int(input())
 numbers = list(map(int, input().split()))
 
-odds = []
-len_odds = 0
-evens = []
-len_evens = 0
-for number in numbers:
-    if number % 2:
-        odds.append(number)
-        len_odds += 1
-    else:
-        evens.append(number)
-        len_evens += 1
+odds = sum(1 for num in numbers if num % 2 == 1)
+evens = N - odds
 
-ans = 0
-if not len_evens:
-    ans = len_odds // 2
-elif len_evens < len_odds:
-    if len_evens == 1:
-        ans = len_odds - 1
-    else:
-        ans = len_odds + 1
-elif len_evens > len_odds:
-    ans = (len_evens // 2 + 1) + len_odds
+if evens == 0:
+    ans = odds // 2
+elif odds == 0:
+    ans = 1
 else:
-    ans = len_evens + len_odds
+    ans = min(evens, odds) + 1
+    
+    if odds > evens:
+        ans += (odds - evens) // 2
 
 print(ans)
