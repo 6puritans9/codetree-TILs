@@ -17,7 +17,7 @@ ans = 0
 if not len_evens:
     ans = len_odds // 2
 elif len_evens < len_odds:
-    ans = len_odds
+    ans = len_odds - 1
 else:
     ans = len_evens + len_odds
 # elif len_evens > len_odds:
