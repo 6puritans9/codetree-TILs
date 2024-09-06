@@ -18,9 +18,9 @@ if not len_evens:
     ans = len_odds // 2
 elif len_evens < len_odds:
     ans = len_odds - 1
+elif len_evens > len_odds:
+    ans = (len_evens // 2 + 1) + len_odds
 else:
     ans = len_evens + len_odds
-# elif len_evens > len_odds:
-#     ans = len_evens + len_odds
 
 print(ans)
