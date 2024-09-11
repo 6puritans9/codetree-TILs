@@ -2,7 +2,7 @@ N = int(input())
 numbers = list(map(int, input().split()))
 
 biggest_num = 0
-idx = 0
+idx = N
 for i in range(N):
     cur_num = numbers[i]
 
