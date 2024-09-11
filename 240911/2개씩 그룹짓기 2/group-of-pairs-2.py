@@ -1,9 +1,9 @@
 def max_min_difference_groups(n, numbers):
     # Sort the array in descending order
-    numbers.sort(reverse=True)
+    numbers.sort()
     
     # Calculate the minimum difference between elements n positions apart
-    min_diff = min(numbers[i] - numbers[i + n] for i in range(n))
+    min_diff = min(numbers[i+n] - numbers[i] for i in range(n))
     
     return min_diff
 
