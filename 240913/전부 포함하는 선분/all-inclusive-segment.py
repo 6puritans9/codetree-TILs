@@ -1,35 +1,24 @@
 n = int(input())
-lines = [[int(num) for num in input().split()] for _ in range(n)]
+segments = [list(map(int, input().split())) for _ in range(n)]
 
-min_start = float("inf")
-max_end = 0
-for x1, x2 in lines:
-    if x1 < min_start:
-        min_start = x1
-    
-    if x2 > max_end:
-        max_end = x2
+# Step 1: Find the global min and max with all segments included
+global_min_start = min(x1 for x1, x2 in segments)
+global_max_end = max(x2 for x1, x2 in segments)
 
-len_1 = 0
-len_1_start = float("inf")
-for x1, x2 in lines:
-    if x1 == min_start:
-        continue
-    
-    elif x1 < len_1_start:
-        len_1_start = x1
+# Step 2: Track the second min start and second max end (excluding one segment)
+best_length = float('inf')
 
-len_1 = max_end - len_1_start
+for i in range(n):
+    # Exclude the i-th segment
+    excluded = segments[i]
 
-len_2 = 0
-len_2_end = 0
-for x1, x2 in lines:
-    if x2 == max_end:
-        continue
-    
-    elif x2 > len_2_end:
-        len_2_end = x2
+    # Find min start and max end excluding the current segment
+    min_start = min(x1 for j, (x1, x2) in enumerate(segments) if j != i)
+    max_end = max(x2 for j, (x1, x2) in enumerate(segments) if j != i)
 
-len_2 = len_2_end - min_start
+    # Calculate the length of the segment that covers the remaining segments
+    current_length = max_end - min_start
+    best_length = min(best_length, current_length)
 
-print(min(len_1, len_2))
+# Step 3: Output the shortest possible length
+print(best_length)
