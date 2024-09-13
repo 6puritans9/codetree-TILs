@@ -1,11 +1,6 @@
 n = int(input())
 segments = [list(map(int, input().split())) for _ in range(n)]
 
-# Step 1: Find the global min and max with all segments included
-global_min_start = min(x1 for x1, x2 in segments)
-global_max_end = max(x2 for x1, x2 in segments)
-
-# Step 2: Track the second min start and second max end (excluding one segment)
 best_length = float('inf')
 
 for i in range(n):
