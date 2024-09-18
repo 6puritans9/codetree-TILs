@@ -23,6 +23,7 @@ def delete(pos):
 
     if pos != n:
         letters_right.popleft()
+        n = n-1
 
 
 def insert(pos, letter):
