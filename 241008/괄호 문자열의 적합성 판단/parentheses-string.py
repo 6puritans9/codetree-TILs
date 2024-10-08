@@ -6,7 +6,7 @@ for char in string:
     if char == "(":
         stack.append(char)
     else:
-        if stack[-1] == "(":
+        if len(stack) > 0 and stack[-1] == "(":
             stack.pop()
         else:
             is_correct = "No"
