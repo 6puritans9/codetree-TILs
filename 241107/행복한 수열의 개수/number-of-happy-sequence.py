@@ -16,8 +16,7 @@ for i, row in enumerate(grid):
                 
             if count >= m:
                 result += 1
-
-        
+                break
         
 for j in range(n):
     for i in range(n):
