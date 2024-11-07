@@ -5,31 +5,26 @@ result = 0
 for i, row in enumerate(grid):
     count = 1
     for j in range(1, n):
-        if row[j] != row[j-1]:
+        if row[j] == row[j - 1]:
+            count += 1
+        else:
             count = 1
-            continue
-        
-        count += 1
-    
+
         if count >= m:
             result += 1
             break
-        
-          
-        
+
 for j in range(n):
     col = [grid[i][j] for i in range(n)]
-    
     count = 1
     for i in range(1, n):
-        if col[i] != col[i-1]:
+        if col[i] == col[i - 1]:
+            count += 1
+        else:
             count = 1
-            continue
 
-        count += 1
-        
         if count >= m:
             result += 1
             break
-         
+
 print(result)
