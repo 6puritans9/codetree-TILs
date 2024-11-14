@@ -24,7 +24,7 @@ grid = [[int(num) for num in input().split()] for _ in range(n)]
 max_gold_count = 0
 
 k = 0
-while k < 2*(n-1):
+while k <= 2*(n-1):
     dig_cost = k**2 + (k+1)**2
     
     for i in range(n):
