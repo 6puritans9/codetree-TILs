@@ -1,48 +1,39 @@
-# 변수 선언 및 입력:
+def in_range(x, y):
+    global n
+
+    return 0 <= x < n and 0 <= y < n
+
+
+def get_part_sum(y, x, y_limit, x_limit):
+    global grid
+
+    dys = [-1, -1, 1, 1]
+    dxs = [1, -1, -1, 1]
+    shifts = [y_limit, x_limit, y_limit, x_limit]
+
+    part_sum = 0
+    ny, nx = y, x
+
+    for dy, dx, shift in zip(dys, dxs, shifts):
+        for _ in range(shift):
+            ny += dy
+            nx += dx
+            if not in_range(nx, ny):
+                return 0
+
+            part_sum += grid[ny][nx]
+
+    return part_sum
+
 
 n = int(input())
-grid = [
-    list(map(int, input().split()))
-    for _ in range(n)
-]
+grid = [[int(num) for num in input().split()] for _ in range(n)]
+max_sum = 0
 
+for y in range(n):
+    for x in range(n):
+        for y_limit in range(1, n):
+            for x_limit in range(1, n):
+                max_sum = max(max_sum, get_part_sum(y, x, y_limit, x_limit))
 
-def in_range(x, y):
-    return 0 <= x and x < n and 0 <= y and y < n
-
-
-def get_score(x, y, k, l):
-    dxs, dys = [-1, -1, 1, 1], [1, -1, -1, 1]
-    move_nums = [k, l, k, l]
-    
-    sum_of_nums = 0
-
-    # 기울어진 직사각형의 경계를 쭉 따라가봅니다.
-    for dx, dy, move_num in zip(dxs, dys, move_nums):
-        for _ in range(move_num):
-            x, y = x + dx, y + dy
-                
-            # 기울어진 직사각형이 경계를 벗어나는 경우라면
-            # 불가능하다는 의미로 답이 갱신되지 않도록
-            # 0을 반환합니다.
-            if not in_range(x, y):
-                return 0
-            
-            sum_of_nums += grid[x][y]
-    
-    return sum_of_nums
-
-
-ans = 0
-
-# (i, j)를 시작으로 1, 2, 3, 4 방향
-# 순서대로 길이 [k, l, k, l] 만큼 이동하면 그려지는
-# 기울어진 직사각형을 잡아보는
-# 완전탐색을 진행해봅니다.
-for i in range(n):
-    for j in range(n):
-        for k in range(1, n):
-            for l in range(1, n):
-                ans = max(ans, get_score(i, j, k, l))
-
-print(ans)
+print(max_sum)
