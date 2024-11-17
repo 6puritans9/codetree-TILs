@@ -16,7 +16,7 @@ def get_max_sum(grid, n, m):
     for y1 in range(n):
         for x1 in range(m):
             for y2 in range(y1, n):
-                for x2 in range(x1, n):
+                for x2 in range(x1, m):
                     rect_sum = get_rect_sum(grid,y1,x1,y2,x2)
                     rectangles.append((rect_sum, y1, x1, y2, x2))
                     rectangles_size += 1
@@ -28,7 +28,6 @@ def get_max_sum(grid, n, m):
 
             if y_start1 <= y_end2 and y_end1 >= y_start2 and x_start1 <= x_end2 and x_end1 >= x_start2:
                 continue
-            
             max_sum = max(max_sum, rect_sum1 + rect_sum2) 
 
     return max_sum
