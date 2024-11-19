@@ -21,7 +21,7 @@ def get_max_area(down_max, n, m):
 
                 max_area = max(max_area, max_height * (l - x + 1))
     
-    return max_area
+    return max_area if max_area > 0 else -1
 
 
 
