@@ -53,7 +53,7 @@ if __name__ == "__main__":
     winds = []
     for _ in range(q):
         row, direction = input().split()
-        row = int(row)
+        row = int(row) - 1
         direction = False if direction == "L" else True
         winds.append((row, direction))
 
