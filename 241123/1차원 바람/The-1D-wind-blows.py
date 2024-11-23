@@ -1,15 +1,7 @@
-# "L": True, "R": False
-
-
 # def is_range(row, col):
 #     global n, m
 
 #     return 0 <= row < n and 0 <= col < m
-
-
-# def is_adjacent(grid, row, col):
-#     if not is_range(row, col):
-#         return False
 
 
 def propagate_up(grid, row, direction):
@@ -28,7 +20,7 @@ def propagate_up(grid, row, direction):
 def propagate_down(grid, row, direction):
     global n, m
     
-    if row >= n:
+    if row > n - 1:
         return
 
     for col in range(m):
