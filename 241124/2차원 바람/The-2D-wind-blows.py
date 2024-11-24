@@ -39,7 +39,7 @@ def rotate(grid, start_y, start_x, end_y, end_x):
 def mutate(grid, start_y, start_x, end_y, end_x):
     dys = [-1, 0, 1, 0]
     dxs = [0, 1, 0, -1]
-    
+
     result = deque()
 
     for y in range(start_y, end_y):
@@ -53,7 +53,7 @@ def mutate(grid, start_y, start_x, end_y, end_x):
                 if in_range(ny, nx):
                     _sum += grid[ny][nx]
                     count += 1
-            
+
             avg = _sum // count
             result.append(avg)
 
