@@ -30,9 +30,9 @@ def rotate(grid, start_y, start_x, end_y, end_x):
         grid[start_y][i] = new_order.popleft()
     for j in range(start_y, end_y):
         grid[j][end_x] = new_order.popleft()
-    for k in range(end_x, 0, -1):
+    for k in range(end_x, 1, -1):
         grid[end_y][k] = new_order.popleft()
-    for l in range(end_y - 1, start_y, -1):
+    for l in range(end_y, start_y, -1):
         grid[l][start_x] = new_order.popleft()
 
 
