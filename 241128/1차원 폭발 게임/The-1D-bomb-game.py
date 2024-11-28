@@ -23,34 +23,27 @@ if __name__ == "__main__":
                 if bombs[j]:
                     if bombs[j] == target_bomb:
                         count += 1
-                    if j == bombs_count - 1 and count >= m:
-                        # print(i, j)
-                        exploded = blast(bombs, i, j + 1)
-                        # print(bombs)
+                        if j == bombs_count - 1 and count >= m:
+                            exploded = blast(bombs, i, j + 1)
 
                     elif bombs[j] != target_bomb and count >= m:
                         exploded = blast(bombs, i, j)
                         count = 1
                     else:
-                        count = 1
-            
-            # print(i)
-        
+                        break
+                        # count = 1
+
         if not exploded:
             break
-        
-        
-        
-    # result        
+
+    # result
     remains = 0
     for bomb in bombs:
         if bomb:
             remains += 1
     print(remains)
 
-    # print("remaining bombs")
     if remains:
-        for i in range(len(bombs) - 1, -1, -1):
+        for i in range(len(bombs)):
             if bombs[i]:
                 print(bombs[i])
-            # print(bombs[i])
