@@ -1,49 +1,30 @@
-def blast(bombs, i, j):
-    for idx in range(i, j):
-        bombs[idx] = 0
+def explode_and_gravity(bombs, m):
+    n = len(bombs)
+    marked = [False] * n
 
-    return True
+    i = 0
+    while i < n:
+        j = i
+        while j < n and bombs[j] == bombs[i]:
+            j += 1
+        if j - i >= m:
+            for k in range(i, j):
+                marked[k] = True
+        i = j
+
+    return [bombs[k] for k in range(n) if not marked[k]]
 
 
 if __name__ == "__main__":
-    n, m = tuple(map(int, input().split()))
+    n, m = map(int, input().split())
     bombs = [int(input()) for _ in range(n)]
 
     while True:
-        bombs_count = len(bombs)
-        exploded = False
-
-        for i in range(bombs_count):
-            if not bombs[i]:
-                continue
-            target_bomb = bombs[i]
-            count = 1
-
-            for j in range(i + 1, bombs_count):
-                if bombs[j]:
-                    if bombs[j] == target_bomb:
-                        count += 1
-                        if j == bombs_count - 1 and count >= m:
-                            exploded = blast(bombs, i, j + 1)
-
-                    elif bombs[j] != target_bomb and count >= m:
-                        exploded = blast(bombs, i, j)
-                        count = 1
-                    else:
-                        break
-                        # count = 1
-
-        if not exploded:
+        new_bombs = explode_and_gravity(bombs, m)
+        if new_bombs == bombs:
             break
+        bombs = new_bombs
 
-    # result
-    remains = 0
+    print(len(bombs))
     for bomb in bombs:
-        if bomb:
-            remains += 1
-    print(remains)
-
-    if remains:
-        for i in range(len(bombs)):
-            if bombs[i]:
-                print(bombs[i])
+        print(bomb)
