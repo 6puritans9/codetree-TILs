@@ -27,6 +27,8 @@ if __name__ == "__main__":
     n, m, k = tuple(map(int, input().split()))
     grid = [[int(num) for num in input().split()] for _ in range(n)]
 
-    drop_block(grid, n, m, k)
+    if n > 1 :
+        drop_block(grid, n, m, k)
+        
     for row in grid:
         print(" ".join(map(str, row)))
