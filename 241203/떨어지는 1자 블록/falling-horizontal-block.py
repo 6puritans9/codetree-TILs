@@ -1,33 +1,21 @@
 def drop_block(grid, n, m, k):
-    y = 0
-
-    if n <= 1:
-        for x in range(k-1, k+m-1):
-            is_occupied = grid[y][x]
-            if is_occupied:
-                return
-        
-        for x in range(k-1, k+m-1):
-                grid[y][x] = 1
-        
-        return
-
-    
-    for _ in range(n):
+    for y in range(n):
         contacted = False
 
-        for x in range(k-1, k+m-1):
-            below_space = grid[y + 1][x]
-            if below_space:
-                contacted = True
-                break
-            
+        for x in range(k - 1, k + m - 1):
+            if y < n - 1:
+                below_space = grid[y + 1][x]
+                if below_space:
+                    contacted = True
+                    break
+            else:
+                for x in range(k - 1, k + m - 1):
+                    grid[y][x] = 1
+
         if contacted:
-            for x in range(k-1, k+m-1):
+            for x in range(k - 1, k + m - 1):
                 grid[y][x] = 1
             break
-
-        y += 1
 
 
 if __name__ == "__main__":
