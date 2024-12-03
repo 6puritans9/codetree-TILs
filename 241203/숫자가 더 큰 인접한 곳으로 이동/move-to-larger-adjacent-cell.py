@@ -17,10 +17,9 @@ def move(grid, n, start_y, start_x):
         for dy, dx in zip(dys, dxs):
             ny = y + dy
             nx = x + dx
-            next_value = grid[ny][nx]
 
-            if in_range(ny, nx, n) and next_value > cur_value:
-                trail.append(next_value)
+            if in_range(ny, nx, n) and grid[ny][nx] > cur_value:
+                trail.append(grid[ny][nx])
                 y = ny
                 x = nx
                 break
