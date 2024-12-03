@@ -9,8 +9,7 @@ def drop_block(grid, n, m, k):
                     contacted = True
                     break
             else:
-                for x in range(k - 1, k + m - 1):
-                    grid[y][x] = 1
+                contacted = True
 
         if contacted:
             for x in range(k - 1, k + m - 1):
