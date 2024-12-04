@@ -37,6 +37,7 @@ def escape(maze, n, start_y, start_x):
     directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]
     i = 0
     count = 0
+    turn_count = 0
 
     y, x = start_y, start_x
     # visited[y][x] = 1
@@ -51,15 +52,17 @@ def escape(maze, n, start_y, start_x):
         else:
             # if visited[ny][nx]:
             #     break
-            if count > 9999:
+            if count > 999 or turn_count > 999:
                 break
 
             if is_wall(maze, ny, nx):
                 i = turn(i, 0)
+                turn_count += 1
                 continue
 
             elif should_turn(y, x, i, maze, n):
                 i = turn(i, 1)
+                turn_count += 1
 
         # visited[ny][nx] = 1
         y, x = ny, nx
