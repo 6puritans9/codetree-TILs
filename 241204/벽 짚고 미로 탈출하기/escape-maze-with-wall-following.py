@@ -33,13 +33,13 @@ def forward(y, x, direction):
     return [y + dir_y, x + dir_x]
 
 
-def escape(maze, n, start_y, start_x, visited):
+def escape(maze, n, start_y, start_x):
     directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]
     i = 0
     count = 0
 
     y, x = start_y, start_x
-    visited[y][x] = 1
+    # visited[y][x] = 1
     while True:
         direction = directions[i]
         ny, nx = forward(y, x, direction)
@@ -49,7 +49,9 @@ def escape(maze, n, start_y, start_x, visited):
             return count
 
         else:
-            if visited[ny][nx]:
+            # if visited[ny][nx]:
+            #     break
+            if count > 9999:
                 break
 
             if is_wall(maze, ny, nx):
@@ -59,7 +61,7 @@ def escape(maze, n, start_y, start_x, visited):
             elif should_turn(y, x, i, maze, n):
                 i = turn(i, 1)
 
-        visited[ny][nx] = 1
+        # visited[ny][nx] = 1
         y, x = ny, nx
         count += 1
 
@@ -69,7 +71,7 @@ def escape(maze, n, start_y, start_x, visited):
 n = int(input())
 y, x = tuple(map(int, input().split()))
 maze = [[char for char in input()] for _ in range(n)]
-visited = [[0 for _ in range(n)] for _ in range(n)]
+# visited = [[0 for _ in range(n)] for _ in range(n)]
 
-count = escape(maze, n, y - 1, x - 1, visited)
+count = escape(maze, n, y - 1, x - 1)
 print(count)
