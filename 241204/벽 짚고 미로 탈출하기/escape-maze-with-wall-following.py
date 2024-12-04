@@ -26,13 +26,14 @@ def escape(maze, n, start_y, start_x, visited):
         direction = directions[i]
         ny, nx = forward(y, x, direction)
         
-        if is_wall(maze, ny, nx):
-            i = turn(i)
-            continue
 
-        elif not in_range(ny, nx, n):
+        if not in_range(ny, nx, n):
             count += 1
             return count
+        
+        elif is_wall(maze, ny, nx):
+            i = turn(i)
+            continue
 
         elif visited[ny][nx]:
             break
