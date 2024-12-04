@@ -52,7 +52,7 @@ def escape(maze, n, start_y, start_x):
         else:
             # if visited[ny][nx]:
             #     break
-            if count > 999 or turn_count > 999:
+            if count > 9999 or turn_count > 9999:
                 break
 
             if is_wall(maze, ny, nx):
