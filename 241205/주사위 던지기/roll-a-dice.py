@@ -6,7 +6,6 @@ class Dice():
         self.right = 3
         self.front = 2
         self.back = 5
-    
 
     def roll(self, instruction):
         if instruction == "L":
@@ -19,7 +18,7 @@ class Dice():
             self.bottom = new_bottom
             self.left = new_left
             self.right = new_right
-        
+
         elif instruction == "R":
             new_top = self.left
             new_bottom = self.right
@@ -55,31 +54,32 @@ class Dice():
 
 
 def in_range(y, x, n):
-    return 0<= y < n and 0<= x < n
+    return 0 <= y < n and 0 <= x < n
 
 
 def mark(grid, y, x, value):
-        grid[y][x] = value
-
+    grid[y][x] = value
+1
 
 if __name__ == "__main__":
     n, m, r, c = tuple(map(int, input().split()))
     instructions = input().split()
 
     grid = [[0 for _ in range(n)] for _ in range(n)]
-    directions = {"L":(0, -1), "R":(0, 1), "U": (-1, 0), "D": (1, 0)}
+    directions = {"L": (0, -1), "R": (0, 1), "U": (-1, 0), "D": (1, 0)}
     dice = Dice()
 
-    y, x = r-1, c-1
+    y, x = r - 1, c - 1
     mark(grid, y, x, dice.bottom)
 
     for instruction in instructions:
         dy, dx = directions[instruction]
         ny, nx = y + dy, x + dx
 
-        if in_range(ny, nx, n):
-            dice.roll(instruction)
-            mark(grid, ny, nx, dice.bottom)
+        if not in_range(ny, nx, n) or not in_range(y, x, n):
+            continue
+        dice.roll(instruction)
+        mark(grid, ny, nx, dice.bottom)
         y, x = ny, nx
 
     _sum = sum(sum(row) for row in grid)
