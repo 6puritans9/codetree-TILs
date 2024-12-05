@@ -7,8 +7,8 @@ def plant(grid, y, x, time):
     dxs = [0, -1, 0, 1]
 
     for dy, dx in zip(dys, dxs):
-        ny = y + (dy ** time - 1)
-        nx = x + (dx ** time - 1)
+        ny = y + dy * (2 ** (time - 1))
+        nx = x + dx * (2 ** (time - 1))
 
         if in_range(ny, nx, n):
             grid[ny][nx] = 1
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     grid = [[0 for _ in range(n)] for _ in range(n)]
 
     y, x, = r-1, c-1
-    plant(grid, y, x, 0)
+    grid[y][x] = 1
 
     for t in range(1, m + 1):
         grid = play(grid, n, y, x, t)
