@@ -30,12 +30,7 @@ def in_range(y, x, n):
 
 
 def is_overlapped(snake):
-    # return snake.head in list(snake.positions)[1:]
-    # print("Positions:", list(snake.positions))
-    # print("Head:", snake.head)
-    # print(snake.positions.count(snake.head))
     return snake.positions.count(snake.head) > 1
-
 
 
 def play(grid, n, snake, direction, distance, count):
@@ -47,16 +42,17 @@ def play(grid, n, snake, direction, distance, count):
         ny, nx = y + dy, x + dx
 
         if not in_range(ny, nx, n):
-            return count
+            count[0] += 1
+            return True
 
         snake.move(grid, ny, nx)
-        # if is_overlapped(snake):
-        #     print(count)
-        #     return count
+        if is_overlapped(snake):
+            count[0] += 1
+            return True
 
-        count += 1
+        count[0] += 1
 
-    return count
+    return False
 
 
 if __name__ == "__main__":
@@ -78,11 +74,12 @@ if __name__ == "__main__":
         grid[y - 1][x - 1] = 1
 
     snake = Snake()
-    count = 0
+    count = [0]
+    is_game_over = False
     for info in info_snake:
         direction, distance = info
-        count = play(grid, n, snake, direction, distance, count)
-        if is_overlapped(snake):
+        is_game_over = play(grid, n, snake, direction, distance, count)
+        if is_game_over:
             break
 
-    print(count)
+    print(count[0])
