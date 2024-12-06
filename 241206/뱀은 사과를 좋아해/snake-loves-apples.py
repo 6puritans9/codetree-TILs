@@ -4,18 +4,19 @@ from collections import deque
 class Snake():
     def __init__(self):
         self.positions = deque([(0, 0)])
-        self.length = 1
+        self.positions_set = {(0,0)}
         self.head = self.positions[0]
 
     def extend(self, grid, y, x):
         grid[y][x] = 0
-        self.length += 1
 
     def shrink(self):
-        self.positions.pop()
+        tail = self.positions.pop()
+        self.positions_set.remove(tail)
 
     def move(self, grid, y, x):
         self.positions.appendleft((y, x))
+        self.positions_set.add((y, x))
 
         if grid[y][x]:
             self.extend(grid, y, x)
@@ -30,7 +31,7 @@ def in_range(y, x, n):
 
 
 def is_overlapped(snake):
-    return snake.positions.count(snake.head) > 1
+    return len(snake.positions_set) < len(snake.positions)
 
 
 def play(grid, n, snake, direction, distance, count):
@@ -69,8 +70,8 @@ if __name__ == "__main__":
         info_snake.append((_input[0], int(_input[1])))
 
     grid = [[0 for _ in range(n)] for _ in range(n)]
-    for info in info_apple:
-        y, x = info
+    for apple in info_apple:
+        y, x = apple
         grid[y - 1][x - 1] = 1
 
     snake = Snake()
