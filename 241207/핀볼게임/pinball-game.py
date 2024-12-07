@@ -1,3 +1,5 @@
+# / \
+
 def in_range(y, x, n):
     return 0 <= y < n and 0 <= x < n
 
@@ -15,7 +17,7 @@ def tile1(y, x, ins_dir):
 
 def tile2(y, x, ins_dir):
     deflections = {"L": "U", "R": "D", "U": "L", "D": "R"}
-    nxt_dir = {"L": (1, 0), "R": (-1, 0), "U": (0, 1), "D": (-1, 0)}
+    nxt_dir = {"L": (1, 0), "R": (-1, 0), "U": (0, 1), "D": (0, -1)}
 
     deflection = deflections[ins_dir]
     dy, dx = nxt_dir[ins_dir]
@@ -28,13 +30,15 @@ def play(grid, n, start_y, start_x, ins_dir):
     nxt_dir = {"L": (0, 1), "R": (0, -1), "U": (1, 0), "D": (-1, 0)}
 
     _dir = ins_dir
-    dy, dx = nxt_dir[ins_dir]
-    y, x = start_y + dy, start_x + dx
+    y, x = start_y, start_x
+    # dy, dx = nxt_dir[ins_dir]
     ny, nx = y, x
     count = 1
 
     while in_range(ny, nx, n):
         cur_tile = grid[y][x]
+        # if start_y == 2 and start_x == 0:
+        #     print(y, x, ny, nx)
 
         if cur_tile:
             if cur_tile == 1:
@@ -47,28 +51,31 @@ def play(grid, n, start_y, start_x, ins_dir):
 
         if not in_range(ny, nx, n):
             break
+
         count += 1
         y, x = ny, nx
 
+    # if count == 9:
+    #     print(start_y, start_x)
+
     return count + 1
 
-
+# / \
 if __name__ == "__main__":
     n = int(input())
     grid = [[int(num) for num in input().split()] for _ in range(n)]
     max_count = 0
 
     for y in range(n):
-        max_count = max(max_count, play(grid, n, y, -1, "L"))
+        max_count = max(max_count, play(grid, n, y, 0, "L"))
 
     for y in range(n):
-        max_count = max(max_count, play(grid, n, y, n, "R"))
+        max_count = max(max_count, play(grid, n, y, n - 1, "R"))
 
     for x in range(n):
-        max_count = max(max_count, play(grid, n, -1, x, "U"))
+        max_count = max(max_count, play(grid, n, 0, x, "U"))
 
     for x in range(n):
-        max_count = max(max_count, play(grid, n, n, x, "D"))
+        max_count = max(max_count, play(grid, n, n - 1, x, "D"))
 
     print(max_count)
-    
