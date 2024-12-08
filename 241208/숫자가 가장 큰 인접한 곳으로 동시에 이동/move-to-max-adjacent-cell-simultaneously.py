@@ -2,51 +2,44 @@ def in_range(y, x, n):
     return 0 <= y < n and 0 <= x < n
 
 
-def play(values_grid, beads_grid, beads_pos, n):
-    dys = [-1, 1, 0, 0]
+def play(values_grid, beads_pos, n):
+    dys = [-1, 1, 0, 0]  
     dxs = [0, 0, -1, 1]
 
-    for i, pos in enumerate(beads_pos):
-        if not pos:
-            continue
+    new_positions = {}
 
-        y, x = pos
-        cur_value = values_grid[y][x]
+    
+    for i, (y, x) in enumerate(beads_pos):
+        best_value = -1
+        best_pos = (y, x) 
 
         for dy, dx in zip(dys, dxs):
-            ny = y + dy
-            nx = x + dx
+            ny, nx = y + dy, x + dx
+            if in_range(ny, nx, n) and values_grid[ny][nx] > best_value:
+                best_value = values_grid[ny][nx]
+                best_pos = (ny, nx)
 
-            if in_range(ny, nx, n):
-                nxt_value = values_grid[ny][nx]
+        if best_pos not in new_positions:
+            new_positions[best_pos] = []
+        new_positions[best_pos].append(i)
 
-                if nxt_value > cur_value:
-                    cur_value = nxt_value
-                    beads_grid[ny][nx] = 1
-                    beads_grid[y][x] = 0
-                    beads_pos[i] = [ny, nx]
+    
+    updated_positions = []
+    for pos, indices in new_positions.items():
+        if len(indices) == 1:  
+            updated_positions.append(pos)
 
-
-    for i, pos in enumerate(beads_pos):
-        if beads_pos.count(pos) > 1:
-            y, x = pos
-            beads_grid[y][x] = 0
-            beads_pos[i] = None
+    return updated_positions
 
 
-n, m, t = tuple(map(int, input().split()))
-grid = [[int(num) for num in input().split()] for _ in range(n)]
-beads_given = [tuple(int(num) for num in input().split()) for _ in range(m)]
+if __name__ == '__main__':
+    n, m, t = map(int, input().split())
+    grid = [list(map(int, input().split())) for _ in range(n)]
+    beads_given = [tuple(map(int, input().split())) for _ in range(m)]
 
-beads = [[0 for _ in range(n)] for _ in range(n)]
-beads_pos = []
-for r, c in beads_given:
-    y, x = r - 1, c - 1
+    beads_pos = [(r - 1, c - 1) for r, c in beads_given]
 
-    beads[y][x] = 1
-    beads_pos.append([y, x])
+    for _ in range(t):
+        beads_pos = play(grid, beads_pos, n)
 
-for _ in range(t):
-    play(grid, beads, beads_pos, n)
-
-print(sum(sum(row) for row in beads))
+    print(len(beads_pos))
