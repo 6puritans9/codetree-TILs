@@ -36,9 +36,12 @@ def move(beads, n):
 
 def simulate_beads(n, m, beads):
     seen_states = set()
-    while beads:
-        # Generate the current state as a sorted tuple
-        current_state = tuple(sorted((y, x, d) for y, x, d in beads))
+    max_iterations = n * n * 4  # Set a practical upper limit
+    iterations = 0
+
+    while beads and iterations < max_iterations:
+        # Generate the current state as a sorted frozenset
+        current_state = frozenset((y, x, d) for y, x, d in beads)
 
         # Check if this state was seen before
         if current_state in seen_states:
@@ -47,6 +50,7 @@ def simulate_beads(n, m, beads):
 
         # Move beads and handle collisions
         beads = move(beads, n)
+        iterations += 1
 
     return len(beads)
 
