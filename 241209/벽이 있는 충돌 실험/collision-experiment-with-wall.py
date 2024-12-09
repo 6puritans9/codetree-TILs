@@ -62,7 +62,7 @@ if __name__ == "__main__":
             row, col, direction = input().split()
             beads.append([int(row) - 1, int(col) - 1, direction])
 
-        for _ in range(n * n):
+        for _ in range(n * 10):
             for i, bead in enumerate(beads):
                 y, x, d = bead
 
