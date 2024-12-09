@@ -1,71 +1,73 @@
 def in_range(y, x, n):
     return 0 <= y < n and 0 <= x < n
 
-def reverse_direction(direction):
-    return {"L": "R", "R": "L", "U": "D", "D": "U"}[direction]
 
-def move(beads, n):
-    new_positions = {}
-    for idx, (y, x, d) in enumerate(beads):
-        # Calculate new position
-        if d == "L":
-            ny, nx = y, x - 1
-        elif d == "R":
-            ny, nx = y, x + 1
-        elif d == "U":
-            ny, nx = y - 1, x
-        elif d == "D":
-            ny, nx = y + 1, x
+def turn(beads, idx):
+    direction = beads[idx][2]
 
-        # Handle boundary collision
-        if not in_range(ny, nx, n):
-            ny, nx = y, x
-            d = reverse_direction(d)
+    if direction == "L":
+        beads[idx][2] = "R"
+    elif direction == "R":
+        beads[idx][2] = "L"
+    elif direction == "U":
+        beads[idx][2] = "D"
+    else:
+        beads[idx][2] = "U"
 
-        # Update position
-        if (ny, nx) not in new_positions:
-            new_positions[(ny, nx)] = []
-        new_positions[(ny, nx)].append((ny, nx, d, idx))
 
-    # Handle collisions
-    remaining_beads = []
-    for positions in new_positions.values():
-        if len(positions) == 1:  # No collision
-            remaining_beads.append(positions[0][:3])  # Keep position and direction
-    return remaining_beads
+def move(beads, n, idx, y, x, d):
+    ny, nx = None, None
+    if d == "L":
+        ny, nx = y, x - 1
+    elif d == "R":
+        ny, nx = y, x + 1
+    elif d == "U":
+        ny, nx = y - 1, x
+    else:
+        ny, nx = y + 1, x
 
-def simulate_beads(n, m, beads):
-    seen_states = set()
-    max_iterations = n * n * 4  # Set a practical upper limit
-    iterations = 0
+    if not in_range(ny, nx, n):
+        turn(beads, idx)
+        return
 
-    while beads and iterations < max_iterations:
-        # Generate the current state as a sorted frozenset
-        current_state = frozenset((y, x, d) for y, x, d in beads)
+    beads[idx][0] = ny
+    beads[idx][1] = nx
 
-        # Check if this state was seen before
-        if current_state in seen_states:
-            break  # Cycle detected
-        seen_states.add(current_state)
 
-        # Move beads and handle collisions
-        beads = move(beads, n)
-        iterations += 1
+def remove(beads, beads_length):
+    beads_positions = {}
+    valid_beads = []
 
-    return len(beads)
+    for i in range(beads_length):
+        cur_y, cur_x, d = beads[i]
+
+        if (cur_y, cur_x) not in beads_positions:
+            beads_positions[(cur_y, cur_x)] = []
+
+        beads_positions[(cur_y, cur_x)].append(i)
+
+    for pos, indices in beads_positions.items():
+        if len(indices) == 1:
+            valid_beads.append(beads[indices[0]])
+
+    return valid_beads
+
 
 if __name__ == "__main__":
     t = int(input())
-    results = []
-
     for _ in range(t):
-        n, m = map(int, input().split())
         beads = []
+        n, m = tuple(map(int, input().split()))
+
         for _ in range(m):
-            x, y, d = input().split()
-            beads.append((int(x) - 1, int(y) - 1, d))
+            row, col, direction = input().split()
+            beads.append([int(row) - 1, int(col) - 1, direction])
 
-        results.append(simulate_beads(n, m, beads))
+        for _ in range(n * 2):
+            for i, bead in enumerate(beads):
+                y, x, d = bead
 
-    for result in results:
-        print(result)
+                move(beads, n, i, y, x, d)
+            beads = remove(beads, len(beads))
+
+        print(len(beads))
