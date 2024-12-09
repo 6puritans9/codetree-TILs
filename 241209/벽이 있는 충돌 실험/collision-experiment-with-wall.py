@@ -35,23 +35,18 @@ def move(beads, n):
     return remaining_beads
 
 def simulate_beads(n, m, beads):
-    step = 0
     seen_states = set()
-
     while beads:
-        # Check for repeated state
+        # Generate the current state as a sorted tuple
         current_state = tuple(sorted((y, x, d) for y, x, d in beads))
+
+        # Check if this state was seen before
         if current_state in seen_states:
             break  # Cycle detected
         seen_states.add(current_state)
 
         # Move beads and handle collisions
         beads = move(beads, n)
-        step += 1
-
-        # Early exit if no beads are left
-        if not beads:
-            break
 
     return len(beads)
 
