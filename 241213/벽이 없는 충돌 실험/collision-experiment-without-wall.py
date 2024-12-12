@@ -1,5 +1,5 @@
 def in_range(x, y):
-    return -2 <= x <= 2 and -2 <= y <= 2
+    return -1000 <= x <= 1000 and -1000 <= y <= 1000
 
 
 def is_stuck(bead):
