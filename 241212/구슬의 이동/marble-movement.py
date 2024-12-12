@@ -4,7 +4,6 @@ def in_range(y, x, n):
 
 def turn(d):
     nxt_directions = {"L": "R", "R": "L", "U": "D", "D": "U"}
-
     return nxt_directions[d]
 
 
@@ -26,67 +25,50 @@ def move(bead, n):
         y, x = ny, nx
 
     bead[0], bead[1] = y, x
+    bead[2] = d
 
 
 def collide(array, k):
     array.sort(key=lambda x: (x[3], x[4]))
-
-    for i in range(len(array) - 1, -1 + k, -1):
-        element = array[i]
-        element[-1] = False
+    for i in range(len(array) - k):
+        array[i][-1] = False
 
 
-def handle_collision(beads, k, n):
+def handle_collision(beads, k):
     grid = {}
 
     for bead in beads:
         y, x, d, v, i, s = bead
-
+        if not s:
+            continue
         if (y, x) not in grid:
             grid[(y, x)] = []
-
         grid[(y, x)].append(bead)
 
-    for (y, x), array in grid.items():
+    for array in grid.values():
         if len(array) > k:
-            collide(grid[(y, x)], k)
+            collide(array, k)
 
 
 def operate(beads, k, n):
     for bead in beads:
         is_active = bead[-1]
-
         if is_active:
             move(bead, n)
-
-    handle_collision(beads, k, n)
+    handle_collision(beads, k)
 
 
 if __name__ == "__main__":
     n, m, t, k = tuple(map(int, input().split()))
-    # grid = [[[] for _ in range(n)] for _ in range(n)]
-    data = []
-    for _ in range(m):
-        r, c, d, v = input().split()
-        data.append((int(r), int(c), d, int(v)))
+    data = [input().split() for _ in range(m)]
 
     beads = []
     for i, element in enumerate(data):
         r, c, d, v = element
-        beads.append([r - 1, c - 1, d, v, i + 1, True])  # y, x, d, v, order, status
-    # for bead in beads:
-    #     y, x, d, v, i, s = bead
-    #     grid[y][x].append(bead)
+        beads.append([int(r) - 1, int(c) - 1, d, int(v), i + 1, True])
 
     for _ in range(t):
         operate(beads, k, n)
 
-    count = 0
-    # for y in range(n):
-    #     for x in range(n):
-    #         _sum += len(grid[y][x])
-    for bead in beads:
-        if bead[-1]:
-            count += 1
-
+    count = sum(1 for bead in beads if bead[-1])
     print(count)
