@@ -1,3 +1,7 @@
+import sys
+input = sys.stdin.readline
+
+
 def in_range(x, y):
     return -1000 <= x <= 1000 and -1000 <= y <= 1000
 
