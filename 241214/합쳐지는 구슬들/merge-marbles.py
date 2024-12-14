@@ -10,7 +10,7 @@ def merge(grid, y, x):
     for bead in grid[y][x]:
         d, w, i = bead
         if i > max_i:
-            max_i = i
+            max_i = int(i)
             new_direction = d
         sum_weight += w
     
