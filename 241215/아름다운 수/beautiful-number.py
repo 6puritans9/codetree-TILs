@@ -1,30 +1,31 @@
-def is_beautiful(current):
-    length = len(current)
-    i = 0
-    while i < length:
-        digit = current[i]
-        count = 0
-        while i + count < length and current[i + count] == digit:
-            count += 1
-        if count != int(digit):
+def is_valid(str_num):
+    numbers = [int(char) for char in str_num]
+    result = {}
+
+    for number in numbers:
+        if number not in result:
+            result[number] = 0
+        result[number] += 1
+
+    for number, count in result.items():
+        if number != 1 and number != count:
             return False
-        i += count
+
     return True
 
-def backtrack(n, current, count):
-    if len(current) == n:
-        if is_beautiful(current):
+
+def find_numbers(str_num, count, n):
+    if len(str_num) == n:
+        if is_valid(str_num):
             count[0] += 1
         return
-    
-    for digit in "1234":
-        backtrack(n, current + digit, count)
 
-def count_beautiful_numbers(n):
-    count = [0]
-    backtrack(n, "", count)
-    return count[0]
+    for i in range(1, 5):
+        find_numbers(str_num + str(i), count, n)
 
 
 n = int(input())
-print(count_beautiful_numbers(n))
+string = ""
+count = [0]
+find_numbers(string, count, n)
+print(count[0])
