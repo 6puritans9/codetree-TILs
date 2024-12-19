@@ -13,6 +13,9 @@ def simulate(lines):
 def backtrack(all_lines, idx, target, cur_lines):
     global min_cost, m
 
+    if len(cur_lines) >= min_cost:
+        return
+
     if idx == m:
         if simulate(cur_lines) == target:
             min_cost = min(min_cost, len(cur_lines))
