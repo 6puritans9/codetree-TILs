@@ -1,102 +1,44 @@
-# def calculate(a, b, operator):
-#     if operator == "+":
-#         return a + b
-#     elif operator == "-":
-#         return a - b
-#     else:
-#         return a * b
+import sys
+
+INT_MIN = -sys.maxsize
+
+# 변수 선언 및 입력:
+n = 6
+expression = input()
+num = [0 for _ in range(n)]
+ans = INT_MIN
 
 
-# def translate(letters, idx, numbers, n):
-#     if idx == len(letters) or n > 4:
-#         return
-    
-#     for i in range(len(letters)):
-#         if letters[idx] == char:
-#             numbers[idx] = n
+def conv(idx):
+    return num[ord(expression[idx]) - ord('a')]
 
 
-
-# def compute(letters, operators):
-#     numbers = [0 for _ in range(len(letters))]
-
-#     for i in range(len(letters)):
-#         translate(letters, i, numbers, 1)
-#     calculate()
-#     translate(letters, idx, numbers, n)
-   
-    
-
-
-# if __name__ == "__main__":
-#     string = [char for char in input()]
-#     letters = []
-#     operators = []
-    
-#     for char in string:
-#         if char in "+-*":
-#             operators.append(char)
-#         else:
-#             letters.append(char)
-
-#     max_value = 0
-#     max_value = max(max_value, compute(letters, operators))
-
-#     print(max_value)
-    
-def calculate(a, b, operator):
-    if operator == "+":
-        return a + b
-    elif operator == "-":
-        return a - b
-    elif operator == "*":
-        return a * b
-
-def evaluate_expression(values, letters, operators):
-    # Replace letters with their assigned values
-    stack = [values[0]]  # Start with the first value
-
-    for i in range(len(operators)):
-        operator = operators[i]
-        value = values[i + 1]
-        result = calculate(stack.pop(), value, operator)
-        stack.append(result)
-    
-    return stack[0]
-
-def generate_combinations(idx, current_values, unique_letters, max_result, letters, operators):
-    if idx == len(unique_letters):
-        # Evaluate the expression with the current value combination
-        letter_value_map = {unique_letters[i]: current_values[i] for i in range(len(unique_letters))}
-        values = [letter_value_map[char] for char in letters]
-        result = evaluate_expression(values, letters, operators)
-        return max(max_result, result)
-    
-    for value in range(1, 5):  # Assign values 1 to 4
-        current_values[idx] = value
-        max_result = generate_combinations(idx + 1, current_values, unique_letters, max_result, letters, operators)
-    
-    return max_result
-
-def find_maximum_result(expression):
-    # Parse the expression
-    letters = []
-    operators = []
-    for char in expression:
-        if char in "+-*":
-            operators.append(char)
+def calc():
+    length = len(expression)
+    value = conv(0)
+    for i in range(2, length, 2):
+        if expression[i - 1] == '+':
+            value += conv(i)
+        elif expression[i - 1] == '-':
+            value -= conv(i)
         else:
-            letters.append(char)
+            value *= conv(i)
+    return value
 
-    # Get unique letters
-    unique_letters = list(set(letters))
-    max_result = float('-inf')
 
-    # Use recursive generation of combinations
-    max_result = generate_combinations(0, [0] * len(unique_letters), unique_letters, max_result, letters, operators)
+# 'a'부터 'f'까지 순서대로
+# 0부터 5번째 index까지의 값을 
+# 1~4 중에 하나로 채웁니다.
+def find_max(cnt):
+    global ans
+    
+    if cnt == n:
+        ans = max(ans, calc())
+        return
+    
+    for i in range(1, 5):
+        num[cnt] = i
+        find_max(cnt + 1)
 
-    return max_result
-
-if __name__ == "__main__":
-    expression = input().strip()
-    print(find_maximum_result(expression))
+find_max(0)
+print(ans)
