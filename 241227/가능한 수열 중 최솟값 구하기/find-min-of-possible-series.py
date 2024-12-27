@@ -5,16 +5,26 @@ def is_duplicate(sequence):
             return True
     return False
 
+
+def backtrack(sequence, n):
+    if len(sequence) == n:  # Base case: sequence is complete
+        return True
+
+    for num in [4, 5, 6]:  # Try each number in lexicographical order
+        sequence.append(num)
+        if not is_duplicate(sequence):  # Check if the sequence remains valid
+            if backtrack(sequence, n):  # Recur to complete the sequence
+                return True
+        sequence.pop()  # Undo the choice if it leads to an invalid state
+
+    return False  # No valid number could be appended
+
+
 def get_sequence(n):
-    array = []
-    for _ in range(n):
-        for num in [4, 5, 6]:
-            array.append(num)
-            if is_duplicate(array):
-                array.pop()
-            else:
-                break
-    return array
+    sequence = []
+    backtrack(sequence, n)
+    return sequence
+
 
 if __name__ == "__main__":
     n = int(input())
