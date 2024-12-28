@@ -24,4 +24,4 @@ if __name__ == "__main__":
     min_count = float("inf")
 
     jump(numbers, n, 0, 0)
-    print(min_count)
+    print(min_count if min_count != float("inf") else -1)
