@@ -42,29 +42,29 @@
 def in_range(x, n):
     return 0 <= x < n
 
-def jump(numbers, n, idx, count, min_count):
-    # If out of bounds or stuck (can't move forward)
+def jump(numbers, n, idx, count):
+    # If out of bounds or stuck
     if not in_range(idx, n) or numbers[idx] == 0:
-        return float('inf')  # Return a large value to indicate an invalid path
+        return float('inf')  # Represents an invalid path
 
     # If goal is reached
     if idx == n - 1:
         return count
 
-    # Initialize minimum count for this path
-    local_min = float('inf')
-
-    # Explore all possible jumps from this position
+    # Explore all possible jumps from the current index
     max_jump_dist = numbers[idx]
-    for i in range(1, max_jump_dist + 1):
-        # Recursive call to check the next position
-        local_min = min(local_min, jump(numbers, n, idx + i, count + 1, min_count))
+    min_jumps = float('inf')  # Initialize as a large value
 
-    return local_min
+    for step in range(1, max_jump_dist + 1):
+        # Recursive call to explore further jumps
+        result = jump(numbers, n, idx + step, count + 1)
+        min_jumps = min(min_jumps, result)
+
+    return min_jumps
 
 if __name__ == "__main__":
     n = int(input())
     numbers = list(map(int, input().split()))
     
-    result = jump(numbers, n, 0, 0, float('inf'))
+    result = jump(numbers, n, 0, 0)
     print(result if result != float('inf') else -1)
