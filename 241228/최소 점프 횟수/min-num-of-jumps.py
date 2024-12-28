@@ -39,32 +39,30 @@
 #     jump(numbers, n, 0, 0)
 #     print(min_count)
 
-def in_range(x, n):
-    return 0 <= x < n
-
-def jump(numbers, n, idx, count):
-    # If out of bounds or stuck
-    if not in_range(idx, n) or numbers[idx] == 0:
-        return float('inf')  # Represents an invalid path
-
-    # If goal is reached
+def min_jumps(numbers, idx, n):
+    # If already at the last position
     if idx == n - 1:
-        return count
+        return 0
 
-    # Explore all possible jumps from the current index
-    max_jump_dist = numbers[idx]
-    min_jumps = float('inf')  # Initialize as a large value
+    # If the current position is out of bounds or cannot jump further
+    if idx >= n or numbers[idx] == 0:
+        return float('inf')  # Represents an unreachable path
 
-    for step in range(1, max_jump_dist + 1):
-        # Recursive call to explore further jumps
-        result = jump(numbers, n, idx + step, count + 1)
-        min_jumps = min(min_jumps, result)
+    # Explore all possible jumps from the current position
+    min_steps = float('inf')
+    max_jump = numbers[idx]
 
-    return min_jumps
+    for step in range(1, max_jump + 1):
+        # Recursive call to check the number of jumps from the next position
+        result = min_jumps(numbers, idx + step, n)
+        min_steps = min(min_steps, result)
+
+    # If min_steps is infinity, it means this path is unreachable
+    return min_steps + 1 if min_steps != float('inf') else float('inf')
 
 if __name__ == "__main__":
     n = int(input())
     numbers = list(map(int, input().split()))
-    
-    result = jump(numbers, n, 0, 0)
+
+    result = min_jumps(numbers, 0, n)
     print(result if result != float('inf') else -1)
