@@ -18,4 +18,4 @@ if __name__ == "__main__":
     get_combinations(n, m, 1, [])
 
     for elem in answers:
-        print(" ".join(elem))
+        print(" ".join(elem)) if int(elem) > n else print("".join(elem))
