@@ -2,8 +2,7 @@ def get_combinations(n, m, start, array):
     global answers
 
     if len(array) == m:
-        number = "".join(map(str, array))
-        answers.append(number)
+        answers.append(array[:])
         return
 
     for i in range(start, n+1):
@@ -18,4 +17,4 @@ if __name__ == "__main__":
     get_combinations(n, m, 1, [])
 
     for elem in answers:
-        print(" ".join(elem)) if int(elem) > n else print("".join(elem))
+        print(" ".join(map(str, elem)))
