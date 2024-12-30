@@ -1,43 +1,44 @@
-# def digitize(number):
-#     binary = []
+def backtrack(numbers, idx, subsets, cur_subset):
+    global n, m
 
-    
-#     return binary
+    if len(cur_subset) == m:
+        subsets.append(cur_subset[:])
+        return
+    if idx >= n:
+        return
+
+    cur_subset.append(numbers[idx])
+    backtrack(numbers, idx + 1, subsets, cur_subset)
+    cur_subset.pop()
+
+    backtrack(numbers, idx + 1, subsets, cur_subset)
 
 
-# def find_max(binaries):
-#     max_binary = 0
-    
-#     return max_binary
+def generate_subsets(numbers):
+    global n, m
 
-# if __name__ == "__main__":
-#     n, m = tuple(map(int, input().split()))
-#     integers = list(map(int, input().split()))
-#     binaries = []
+    subsets = []
+    backtrack(numbers, 0, subsets, [])
+    return subsets
 
-#     for integer in integers:
-#         binaries.append(digitize(integer))
-        
-#     answer = find_max(binaries)
-#     decimal = 0
-#     for element in answer:
-#         decimal += element * 2^i
 
-#     print(decimal)
+def find_max_xor(numbers):
+    subsets = generate_subsets(numbers)
 
-from itertools import combinations
+    max_xor = 0
+    for subset in subsets:
+        cur_xor = 0
+
+        for number in subset:
+            cur_xor ^= number
+        max_xor = max(max_xor, cur_xor)
+
+    return max_xor
+
 
 if __name__ == "__main__":
-    # Input reading
-    n, m = map(int, input().split())
+    n, m = tuple(map(int, input().split()))
     integers = list(map(int, input().split()))
-    
-    # Generate all subsets of size m
-    max_xor = 0
-    for subset in combinations(integers, m):
-        xor_value = 0
-        for num in subset:
-            xor_value ^= num  # XOR of all elements in the subset
-        max_xor = max(max_xor, xor_value)
-    
-    print(max_xor)
+
+    result = find_max_xor(integers)
+    print(result)
