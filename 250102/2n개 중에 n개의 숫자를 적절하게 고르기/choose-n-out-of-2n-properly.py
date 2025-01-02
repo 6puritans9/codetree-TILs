@@ -1,13 +1,15 @@
 def backtrack(numbers, n, idx, sub_group, min_diff):
     if len(sub_group) == n:
-        other_group = [number for number in numbers if number not in sub_group]
-        cur_diff = abs(sum(sub_group) - sum(other_group))
+        # other_group = [i for i in range(n * 2) if i not in sub_group]
+        sum_sub_group = sum(numbers[i] for i in sub_group)
+        
+        cur_diff = abs(sum(sub_group) - (sum(numbers) - sum_sub_group))
         min_diff[0] = min(min_diff[0], cur_diff)
         return
     if idx >= n*2:
         return
     
-    sub_group.append(numbers[idx])
+    sub_group.append(idx)
     backtrack(numbers, n, idx + 1, sub_group, min_diff)
     sub_group.pop()
     
