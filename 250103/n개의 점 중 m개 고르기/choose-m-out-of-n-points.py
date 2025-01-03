@@ -1,29 +1,52 @@
-from itertools import combinations
+import sys
 
-def precompute_distances(points):
-    n = len(points)
-    distances = [[0] * n for _ in range(n)]
-    for i in range(n):
-        for j in range(i + 1, n):
-            x1, y1 = points[i]
-            x2, y2 = points[j]
-            distances[i][j] = distances[j][i] = (x1 - x2) ** 2 + (y1 - y2) ** 2
-    return distances
+INT_MAX = sys.maxsize
 
-def get_min_dist(points, m):
-    n = len(points)
-    distances = precompute_distances(points)
-    min_dist = float("inf")
+# 변수 선언 및 입력: 
+n, m = tuple(map(int, input().split()))
+points = [
+    tuple(map(int, input().split()))
+    for _ in range(n)
+]
+selected_points = list()
 
-    for combo in combinations(range(n), m):
-        max_distance = max(distances[i][j] for i in combo for j in combo if i < j)
-        min_dist = min(min_dist, max_distance)
+ans = INT_MAX
 
-    return min_dist
 
-if __name__ == "__main__":
-    n, m = map(int, input().split())
-    points = [tuple(map(int, input().split())) for _ in range(n)]
+def dist(p1, p2):
+    (x1, y1), (x2, y2) = p1, p2
+    return (x1 - x2) ** 2 + (y1 - y2) ** 2
 
-    result = get_min_dist(points, m)
-    print(result)
+
+def calc():
+    # 가장 먼 거리를 반환합니다.
+    return max([
+        dist(p1, p2)
+        for i, p1 in enumerate(selected_points)
+        for j, p2 in enumerate(selected_points)
+        if i != j
+    ])
+
+
+def find_min(idx, cnt):
+    global ans
+    
+    if cnt == m:
+        # 가장 먼 거리 중 최솟값을 선택합니다.
+        ans = min(ans, calc())
+        return
+    
+    if idx == n:
+        return
+    
+    # 점을 선택하는 경우입니다.
+    selected_points.append(points[idx])
+    find_min(idx + 1, cnt + 1)
+    selected_points.pop()
+    
+    # 점을 선택하지 않는 경우입니다.
+    find_min(idx + 1, cnt)
+
+
+find_min(0, 0)
+print(ans)
