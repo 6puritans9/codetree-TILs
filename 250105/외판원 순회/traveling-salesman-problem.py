@@ -1,32 +1,31 @@
-def backtrack(costs, n, frm, to, min_cost, cur_cost, cnt):
-    global visited
-
+def backtrack(costs, n, frm, cur_cost, cnt, visited, min_cost):
+    # Prune if the current cost exceeds the minimum cost found so far
     if cur_cost >= min_cost[0]:
         return
+
+    # If all cities are visited, return to the start
     if cnt == n - 1:
         cur_cost += costs[frm][0]
-        min_cost[0] = min(min_cost[0], cur_cost)
-        return
-    if visited[to]:
+        if costs[frm][0] > 0:  # Ensure there's a valid path back to the start
+            min_cost[0] = min(min_cost[0], cur_cost)
         return
 
-    if costs[frm][to]:
-        visited[to] = True
-        cost = cur_cost + costs[frm][to]
-        for i in range(1, n):
-            backtrack(costs, n, to, i, min_cost, cost, cnt + 1)
-        visited[to] = False
+    # Explore all unvisited cities
+    for to in range(1, n):
+        if not visited[to] and costs[frm][to] > 0:  # Valid unvisited city
+            visited[to] = True
+            backtrack(costs, n, to, cur_cost + costs[frm][to], cnt + 1, visited, min_cost)
+            visited[to] = False
 
 
 def get_min_cost(costs, n):
-    global visited
-
+    # Initialize visited array and minimum cost
+    visited = [False] * n
+    visited[0] = True  # Start from city 0
     min_cost = [float("inf")]
 
-    for i in range(1, n):
-        # visited[i] = True
-        backtrack(costs, n, 0, i, min_cost, 0, 0)
-        # visited[i] = False
+    # Start backtracking from city 0
+    backtrack(costs, n, 0, 0, 0, visited, min_cost)
 
     return min_cost[0]
 
@@ -34,7 +33,4 @@ def get_min_cost(costs, n):
 if __name__ == "__main__":
     n = int(input())
     costs = [[int(num) for num in input().split()] for _ in range(n)]
-    visited = [False] * n
-    visited[0] = True
-
     print(get_min_cost(costs, n))
