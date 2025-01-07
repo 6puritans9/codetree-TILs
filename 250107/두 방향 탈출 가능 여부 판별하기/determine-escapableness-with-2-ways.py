@@ -12,10 +12,11 @@ def dfs(grid, n, visited, y, x):
         if ny == n - 1 and nx == n - 1:
             return True
 
-        if in_range(ny, nx, n) and grid[ny][nx] and not visited[ny][nx]:
-            visited[ny][nx] = True
-            if dfs(grid, n, visited, ny, nx):
-                return True
+        if in_range(ny, nx, n):
+            if grid[ny][nx] and not visited[ny][nx]:
+                visited[ny][nx] = True
+                if dfs(grid, n, visited, ny, nx):
+                    return True
     
     return False
 
