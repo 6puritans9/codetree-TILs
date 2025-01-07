@@ -3,14 +3,14 @@ def in_range(y, x, n):
 
 
 def dfs(grid, n, visited, y, x):
+    if y == n - 1 and x == n - 1:
+            return True
+    
     dys = [0, 1]
     dxs = [1, 0]
 
     for dy, dx in zip(dys, dxs):
         ny, nx = y + dy, x + dx
-        
-        if ny == n - 1 and nx == n - 1:
-            return True
 
         if in_range(ny, nx, n):
             if grid[ny][nx] and not visited[ny][nx]:
