@@ -1,39 +1,36 @@
 def in_range(y, x, n):
-    return 0 <= y < n and 0 <= x < n
+    return 0<=y<n and 0<=x<n
 
 
-def dfs(grid, visited, y, x, n):
-    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-    stack = [(y, x)]
-    population = 0
+def backtrack(grid, n, visited, pops, cur_pop, y, x):
+    if not cur_pop or visited[y][x]:
+        return 0
+    
+    dys = [-1, 0, 1, 0]
+    dxs = [0, 1, 0, -1]
 
-    while stack:
-        cur_y, cur_x = stack.pop()
-        if visited[cur_y][cur_x]:
-            continue
+    visited[y][x] = True
 
-        visited[cur_y][cur_x] = True
-        population += grid[cur_y][cur_x]
+    for dy, dx in zip(dys, dxs):
+        ny, nx = y + dy, x + dx
 
-        for dy, dx in directions:
-            new_y, new_x = cur_y + dy, cur_x + dx
-            if in_range(new_y, new_x, n) and not visited[new_y][new_x] and grid[new_y][new_x] > 0:
-                stack.append((new_y, new_x))
+        if in_range(ny, nx, n):
+            cur_pop += backtrack(grid, n, visited, pops, grid[ny][nx], ny, nx)
 
-    return population
+    return cur_pop
 
 
 def get_villages_and_pops(grid, n):
+    pops = []
     visited = [[False for _ in range(n)] for _ in range(n)]
-    populations = []
 
     for y in range(n):
         for x in range(n):
             if not visited[y][x] and grid[y][x] > 0:
-                populations.append(dfs(grid, visited, y, x, n))
+                pops.append(backtrack(grid, n, visited, pops, grid[y][x], y, x))
 
-    populations.sort()
-    return [len(populations)] + populations
+    pops.sort()
+    return [len(pops)] + pops
 
 
 if __name__ == "__main__":
