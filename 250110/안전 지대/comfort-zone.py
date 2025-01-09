@@ -3,7 +3,6 @@ def in_range(y, x, n, m):
 
 
 def flood(grid, n, m, k):
-    grid = [row[:] for row in grid]  # Make a copy
     did_flood = False
     cur_sum = 0
 
@@ -14,7 +13,7 @@ def flood(grid, n, m, k):
                 did_flood = True
             cur_sum += grid[y][x]
 
-    return [did_flood, cur_sum, grid]
+    return [did_flood, cur_sum]
 
 
 def count_dfs(grid, n, m, k):
@@ -51,11 +50,11 @@ def count_zones(grid, n, m):
     max_count = 0
 
     for k in range(1, 101):
-        flooded, sum_grid, curr_grid = flood(grid, n, m, k)
+        flooded, sum_grid = flood(grid, n, m, k)
         if not flooded and not sum_grid:
             break
 
-        cur_count, cur_k = count_dfs(curr_grid, n, m, k)
+        cur_count, cur_k = count_dfs(grid, n, m, k)
         if cur_count > max_count:
             max_count = cur_count
             max_k = cur_k
