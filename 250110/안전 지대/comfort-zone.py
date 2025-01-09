@@ -32,8 +32,6 @@ def count_dfs(grid, n, m, k):
 
                 while stack:
                     cy, cx = stack.pop()
-                    if visited[cy][cx]:
-                        continue
                     visited[cy][cx] = True
 
                     for dy, dx in zip(dys, dxs):
