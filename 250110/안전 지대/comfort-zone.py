@@ -1,5 +1,5 @@
 def in_range(y, x, n, m):
-    return 0<=y<n and 0<=x<m
+    return 0 <= y < n and 0 <= x < m
 
 
 def flood(grid, n, m, k):
@@ -15,9 +15,9 @@ def flood(grid, n, m, k):
 
 
 def count_dfs(grid, n, m, k):
-    dys = [-1,0,1,0]
-    dxs = [0,1,0,-1]
-    
+    dys = [-1, 0, 1, 0]
+    dxs = [0, 1, 0, -1]
+
     visited = [[False for _ in range(m)] for _ in range(n)]
     stack = []
     cur_count = 0
@@ -36,13 +36,13 @@ def count_dfs(grid, n, m, k):
                     if in_range(ny, nx, n, m):
                         if grid[ny][nx] and not visited[ny][nx]:
                             stack.append((ny, nx))
-    
+
     return [cur_count, k]
-                
-    
+
+
 def count_zones(grid, n, m):
+    max_k = 1
     max_count = 0
-    max_k = 0
 
     for k in range(1, 101):
         flooded = flood(grid, n, m, k)
@@ -54,8 +54,8 @@ def count_zones(grid, n, m):
             max_count = cur_count
             max_k = cur_k
 
-    return [max_count, max_k]
-    
+    return [max_k, max_count]
+
 
 if __name__ == "__main__":
     n, m = map(int, input().split())
