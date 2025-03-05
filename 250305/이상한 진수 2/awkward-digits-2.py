@@ -11,14 +11,9 @@ def find_max(binary) -> int:
     result = -1
 
     for i in range(n):
-        if not binary[i]:
-            binary[i] = 1
-            result = max(result, get_deci(binary, n))
-            binary[i] = 0
-        else:
-            binary[i] = 0
-            result = max(result, get_deci(binary, n))
-            binary[i] = 1
+        binary[i] = 1 - binary[i]
+        result = max(result, get_deci(binary, n))
+        binary[i] = 1 - binary[i]
 
     return result
 
