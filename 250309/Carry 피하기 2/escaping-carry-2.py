@@ -1,21 +1,18 @@
 def has_carry(num1, num2, num3) -> bool:
-    
-    rem1, rem2, rem3 = num1 % 10, num2 % 10, num3 % 10
-    while rem1 or rem2 or rem3:
-        if rem1 + rem2 > 9 or rem2 + rem3 > 9 or rem3 + rem1 > 9:
-            return True
+    while num1 or num2 or num3:
+        rem1, rem2, rem3 = num1 % 10, num2 % 10, num3 % 10
         if rem1 + rem2 + rem3 > 9:
             return True
         
-        num1 //= 10
-        num2 //= 10
-        num3 //= 10
-        rem1, rem2, rem3 = num1 % 10, num2 % 10, num3 % 10
+        num1, num2, num3 = (x // 10 for x in (num1, num2, num3))
 
     return False
 
 
 def find_max_sum_wo_carry(n:int, numbers:list[int]) -> int:
+    # TC = O(N^3) * O(5) = O(N^3)
+    # SC = O(1)
+    
     max_sum = -1
 
     for i in range(n):
