@@ -72,6 +72,9 @@ def find_middle(n, y, x, case) -> tuple[int]:
 
 
 def find_winner(n:int, grid:list[list[int]]) -> list[int]:
+    # TC = O(N^2) * O(4 * 5) = O(N^2)
+    # SC = O(1)
+    
     # state, y, x
     answer = [0, -1, -1]
 
