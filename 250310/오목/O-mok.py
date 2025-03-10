@@ -51,7 +51,7 @@ def is_consecutive(n, grid, y, x) -> int:
             result = 0
             break
         
-        i -= 1
+        i += 1
     
     return result
 
