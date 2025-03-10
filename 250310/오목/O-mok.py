@@ -27,24 +27,31 @@ def is_consecutive(n, grid, y, x) -> int:
         return result
 
     # diag_right
+    i = 0
     for dy in range(y, y+5):
-        for dx in range(x, x+5):
-            if in_range(n, dy, dx) and grid[dy][dx] == start_color:
-                result = 3
-            else:
-                result = 0
-                break
+        dx = x + i
+        
+        if in_range(n, dy, dx) and grid[dy][dx] == start_color:
+            result = 3
+        else:
+            result = 0
+            break
+        i += 1
+
     if result:
         return result
 
     # diag_left
+    i = 0
     for dy in range(y, y+5):
-        for dx in range(x, x-5, -1):
-            if in_range(n, dy, dx) and grid[dy][dx] == start_color:
-                result = 4
-            else:
-                result = 0
-                break
+        dx = x - i
+        if in_range(n, dy, dx) and grid[dy][dx] == start_color:
+            result = 4
+        else:
+            result = 0
+            break
+        
+        i -= 1
     
     return result
 
