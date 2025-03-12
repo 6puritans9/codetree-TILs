@@ -24,11 +24,12 @@ def find_max_coins(n:int, grid=[list[list[int]]]) -> int:
         if coin_1 + coin_2 <= max_coins:
             break # Early pruning
         
-        if y1 == y2 and (x1_end <= x2_start or x2_end <= x1_start):
+        if y1 == y2 and (x1_end >= x2_start or x2_end >= x1_start):
             continue
         
         max_coins = max(max_coins, coin_1 + coin_2)
 
+    # print(sub_grids)
     return max_coins
 
 
