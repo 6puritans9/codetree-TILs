@@ -1,43 +1,33 @@
-def in_range(y, x, n) -> bool:
-    return 0<=y<n and 0<=x<n
-
-
-def visit(visited:list[list[bool]], y:int, x_start:int, x_end:int) -> None:
-    visited[y][x_start] = True
-    visited[y][x_start + 1] = True
-    visited[y][x_end] = True
-
-
-def unvisit(visited:list[list[bool]], y:int, x_start:int, x_end:int) -> None:
-    visited[y][x_start] = False
-    visited[y][x_start + 1] = False
-    visited[y][x_end] = False
+from itertools import combinations
 
 
 def find_max_coins(n:int, grid=[list[list[int]]]) -> int:
-    # TC = O(N^4)
+    # A little optimization with early pruning
+    # TC = O(N^4 + (N^2 * logN))
     # SC = O(N^2)
 
-    visited = [[False for _ in range(n)] for _ in range(n)]
+    sub_grids = []
     max_coins = 0
-    
+
     for y in range(n):
         for x in range(n-2):
-            x_start, x_end = x, x+2
-            
-            visit(visited, y, x_start, x_end)
-            coin_1 = grid[y][x_start] + grid[y][x_start + 1] + grid[y][x_end]
-            
-            for ny in range(y, n):
-                for nx in range(n-2):
-                    nx_start, nx_end = nx, nx + 2
-                    if visited[ny][nx_start] or visited[ny][nx_start + 1] or visited[ny][nx_end]:
-                        continue
-                    
-                    coin_2 = grid[ny][nx_start] + grid[ny][nx_start + 1] + grid[ny][nx_end]
-                    max_coins = max(max_coins, coin_1 + coin_2)
-            
-            unvisit(visited, y, x_start, x_end)
+            sum_coins = grid[y][x] + grid[y][x+1] + grid[y][x+2]
+
+            sub_grids.append((sum_coins, y, x, x+2))
+    
+    # Sort by sum_coins in descending order
+    sub_grids.sort(key=lambda x:x[0], reverse=True)
+
+    for sub_grid_1, sub_grid_2 in combinations(sub_grids, 2):
+        coin_1, y1, x1_start, x1_end = sub_grid_1
+        coin_2, y2, x2_start, x2_end = sub_grid_2
+        if coin_1 + coin_2 <= max_coins:
+            break # Early pruning
+        
+        if y1 == y2 and (x1_end <= x2_start or x2_end <= x1_start):
+            continue
+        
+        max_coins = max(max_coins, coin_1 + coin_2)
 
     return max_coins
 
