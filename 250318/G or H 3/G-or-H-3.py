@@ -1,23 +1,23 @@
-def get_max_score(n, k, letters:list[str]) -> int:
-    # TC = O(MAX_LENGTH * K)
-    # SC = O(MAX_LENGTH)
-    
-    global MAX_LENGTH
-    
-    score = {
-        "G": 1,
-        "H": 2
-    }
+def get_max_score(n, k, peoples:list[str]) -> int:
+    # This one is for utilizing sliding window
+    # TC = O(NlogN) + O(2N) = O(NlogN)
+    # SC = O(1)
+
+    score = {"G":1, "H":2}
 
     max_score = 0
-    for i in range(1, MAX_LENGTH + 1 - k):
-        photo_length = i + k
-        cur_score = 0
+    cur_score = 0
 
-        for j in range(i, photo_length + 1):
-            if letters[j]:
-                cur_score += score[letters[j]]
-        
+    left = 0
+    for right in range(n):
+        right_pos, right_letter = peoples[right]
+        cur_score += score[right_letter]
+
+        while right_pos - peoples[left][0] > k:
+            left_pos, left_letter = peoples[left]
+            cur_score -= score[left_letter]
+            left += 1
+            
         max_score = max(max_score, cur_score)
 
     return max_score
@@ -37,12 +37,12 @@ if __name__ == "__main__":
     # from index i(i>0), create each k sized array, and compare one by one
     # since the length could be up to 10k, O(n^2) will make it in the due time
 
-    MAX_LENGTH = 10000
-
     n, k = map(int, input().split())
-    letters = [None for _ in range(MAX_LENGTH + 1)]
+    peoples = []
     for _ in range(n):
         pos, letter = input().split()
-        letters[int(pos)] = letter
+        peoples.append((int(pos), letter))
     
-    print(get_max_score(n, k, letters))
+    peoples.sort(key=lambda x:x[0])
+    
+    print(get_max_score(n, k, peoples))
