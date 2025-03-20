@@ -3,17 +3,18 @@ from collections import deque
 
 def compare(m: int, seq_b: list[int], subarr: list[int]) -> bool:
     # TC = O(M)
-    # SC = O(1)
+    # SC = O(M)
+
+    freq = {}
+    for target in seq_b:
+        freq[target] = freq.get(target, 0) + 1
 
     for number in subarr:
-        did_match = False
+        if number in freq and freq[number] > 0:
+            freq[number] -= 1
+            continue
 
-        for target in seq_b:
-            if number == target:
-                did_match = True
-
-        if not did_match:
-            return False
+        return False
 
     return True
 
@@ -35,7 +36,6 @@ def find_matching_counts(n: int, m: int, seq_a: list[int], seq_b: list[int]) -> 
 
         if right - left == m - 1:
             counts += 1 if compare(m, seq_b, subarr) else 0
-
 
     return counts
 
