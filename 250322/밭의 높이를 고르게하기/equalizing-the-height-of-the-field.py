@@ -1,7 +1,7 @@
 def find_min_cost(n:int, h:int, t:int, fields:list[int]) -> int:
     min_cost = float("inf")
 
-    for i in range(n - t):
+    for i in range(n - t + 1):
         cur_cost = 0
 
         for j in range(i, i+t):
