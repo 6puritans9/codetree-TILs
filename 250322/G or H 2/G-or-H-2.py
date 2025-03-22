@@ -1,29 +1,24 @@
 def find_max_len(n:int, people:list[int, str]) -> int:
-    global MAX_POS
-
-    # TC = O(MAX_POS^3)
-    # SC = O(MAX_POS)
-
-    people_arr = [None for _ in range(MAX_POS + 1)]
-    for pos, char in people:
-        people_arr[pos] = char
+    # O(N^2) optimization
+    
+    # TC = O(NlogN) + O(N^2) = O(N^2)
+    # SC = O(1)
 
     max_len = 0
-    for end in range(1, MAX_POS + 1):
-        for start in range(1, end):
-            if not people_arr[start] or not people_arr[end]:
-                continue
-            count_g, count_h = 0, 0
+    for i in range(n):
+        count_g, count_h = 0, 0
+        end, _ = people[i]
 
-            for k in range(start, end + 1):
-                char = people_arr[k]
-                if char == 'G':
-                    count_g += 1
-                if char == 'H':
-                    count_h += 1
+        for j in range(i, -1, -1):
+            start, char = people[j]
             
-            if count_g == 0 or count_h == 0 or count_g == count_h:
-                max_len = max(max_len, end-start)
+            if char == 'G':
+                count_g += 1
+            else:
+                count_h += 1
+            
+            if not count_g or not count_h or count_g == count_h:
+                max_len = max(max_len, end - start)
 
     return max_len
 
@@ -48,12 +43,11 @@ if __name__ == "__main__":
     # 3. Make an array of each person in people
     # 4. check the count of 'G' or 'H' whether they are same or only one of them is included
         
-    MAX_POS = 100
-
     n = int(input())
     people = []
     for _ in range(n):
         pos, char = input().split()
         people.append((int(pos), char))
+    people.sort()
     
     print(find_max_len(n, people))
