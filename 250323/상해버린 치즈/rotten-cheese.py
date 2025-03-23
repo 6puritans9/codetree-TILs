@@ -1,9 +1,9 @@
-def find_rotten_cheese(m:int, s:int, eat_log:list[tuple[int]], ill_log:list[tuple[int]]) -> list[int]:
+def find_rotten_cheese(M:int, s:int, eat_log:list[tuple[int]], ill_log:list[tuple[int]]) -> list[int]:
     # TC = O(D*S)
     # SC = O(M)
 
     result = []
-    cheese_list = [0 for _ in range(m+1)]
+    cheese_list = [0 for _ in range(M+1)]
 
     for ill_person, ill_time in ill_log:
         candidates = []
@@ -11,13 +11,16 @@ def find_rotten_cheese(m:int, s:int, eat_log:list[tuple[int]], ill_log:list[tupl
         for eat_person, cheese, eat_time in eat_log:
             if ill_person == eat_person and eat_time < ill_time:
                 candidates.append(cheese)
-        for i in range(1, m + 1):
+        for i in range(1, M + 1):
             if i in candidates:
                 cheese_list[i] += 1
+        # print(f"candidates: {candidates}")
     
     for number, count in enumerate(cheese_list):
         if count >= s:
             result.append(number)
+    
+    # print(M+1, cheese_list)
 
     return result
 
@@ -32,7 +35,6 @@ def find_medicine_counts(eat_log:list[tuple[int]], rotten_cheese:list[int]) -> i
         for rotten in rotten_cheese:
             if cheese == rotten:
                 candidates.add(eat_person)
-
 
     return len(candidates)
 
@@ -65,7 +67,7 @@ if __name__ == "__main__":
 
     # TC = O(dlogd) sort
 
-    n, m, d, s = map(int, input().split())
+    n, M, d, s = map(int, input().split())
     eat_log = []
     ill_log = []
     for _ in range(d):
@@ -76,5 +78,5 @@ if __name__ == "__main__":
         ill_log.append((p, t)) # person, time
 
     eat_log.sort(key=lambda x:(x[0], x[2], x[1]))
-    rotten_cheese = find_rotten_cheese(m, s, eat_log, ill_log)
+    rotten_cheese = find_rotten_cheese(M, s, eat_log, ill_log)
     print(find_medicine_counts(eat_log, rotten_cheese))
