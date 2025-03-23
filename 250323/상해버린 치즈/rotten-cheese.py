@@ -7,12 +7,20 @@ def find_rotten_cheese(m:int, s:int, eat_log:list[tuple[int]], ill_log:list[tupl
     cheese_list = [0 for _ in range(MAX_CHEESE+1)]
 
     for ill_person, ill_time in ill_log:
+        candidates = []
+
         for eat_person, cheese, eat_time in eat_log:
             if ill_person == eat_person and eat_time < ill_time:
-                cheese_list[cheese] += 1
+                candidates.append(cheese)
+        
+        for i in range(1, MAX_CHEESE + 1):
+            if cheese_list[i] > 0 and i not in candidates:
+                cheese_list[i] -= 1
+            if i in candidates:
+                cheese_list[i] += 1
     
     for number, count in enumerate(cheese_list):
-        if count == s:
+        if count > 0:
             result.append(number)
 
     return result
