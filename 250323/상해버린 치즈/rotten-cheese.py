@@ -1,10 +1,9 @@
 def find_rotten_cheese(m:int, s:int, eat_log:list[tuple[int]], ill_log:list[tuple[int]]) -> list[int]:
     # TC = O(D*S)
     # SC = O(M)
-    global MAX_CHEESE
 
     result = []
-    cheese_list = [0 for _ in range(MAX_CHEESE+1)]
+    cheese_list = [0 for _ in range(m+1)]
 
     for ill_person, ill_time in ill_log:
         candidates = []
@@ -12,15 +11,12 @@ def find_rotten_cheese(m:int, s:int, eat_log:list[tuple[int]], ill_log:list[tupl
         for eat_person, cheese, eat_time in eat_log:
             if ill_person == eat_person and eat_time < ill_time:
                 candidates.append(cheese)
-        
-        for i in range(1, MAX_CHEESE + 1):
-            if cheese_list[i] > 0 and i not in candidates:
-                cheese_list[i] -= 1
+        for i in range(1, m + 1):
             if i in candidates:
                 cheese_list[i] += 1
     
     for number, count in enumerate(cheese_list):
-        if count > 0:
+        if count >= s:
             result.append(number)
 
     return result
@@ -68,8 +64,6 @@ if __name__ == "__main__":
     # 4. Return the number of people
 
     # TC = O(dlogd) sort
-
-    MAX_CHEESE = 50
 
     n, m, d, s = map(int, input().split())
     eat_log = []
