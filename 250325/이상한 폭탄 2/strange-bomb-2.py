@@ -6,7 +6,7 @@ def find_largest_bomb(n:int, k:int, bombs:list[int]) -> int:
     # TC = O(N^2)
     # SC = O(1)
     
-    max_bomb = 0
+    max_bomb = -1
     
     for i in range(n):
         for j in range(i-k, i+k+1):
@@ -14,7 +14,7 @@ def find_largest_bomb(n:int, k:int, bombs:list[int]) -> int:
                 max_bomb = max(max_bomb, bombs[i])
                 break
 
-    return max_bomb if max_bomb else -1
+    return max_bomb
 
 
 if __name__ == "__main__":
