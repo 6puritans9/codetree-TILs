@@ -16,16 +16,20 @@ def find_non_overlapping_lines(n:int, lines:list[tuple[int]]) -> int:
         for j in range(i+1, n):
             for k in range(j+1, n):
                 reset(MAX_LENGTH + 1, lines_arr)
+                overlapped = False
 
                 for idx, line in enumerate(lines):
                     if idx == i or idx == j or idx == k:
                         continue
 
                     start, end = line
-                    if lines_arr[start] or lines_arr[end]:
-                        break
                     for l in range(start, end+1):
+                        if lines_arr[l]:
+                            overlapped = True
+                            break
                         lines_arr[l] = 1
+                    if overlapped:
+                        break
                 else:
                     count += 1
 
