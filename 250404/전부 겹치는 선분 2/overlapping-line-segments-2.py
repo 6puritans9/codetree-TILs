@@ -4,7 +4,6 @@ def are_they_overlap(n:int, lines:list[int]) -> str:
     
     result = ["No", "Yes"]
 
-    overlap_found = False
     for i in range(n):
         x1, y1 = lines[i]
         min_end = y1
@@ -19,11 +18,8 @@ def are_they_overlap(n:int, lines:list[int]) -> str:
             max_start = max(max_start, x2)
         
         if not(max_start < min_end):
-            overlap_found = True
+            return result[1]
             
-    if overlap_found:
-        return result[1]
-
     return result[0]
 
 
