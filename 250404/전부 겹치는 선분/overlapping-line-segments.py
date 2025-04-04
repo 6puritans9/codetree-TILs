@@ -1,21 +1,19 @@
 def are_all_lines_overlap(n:int, lines:list[int]) -> str:
-    # TC = O(N*MAX_LIMIT)
-    # SC = O(MAX_LIMIT)
+    # TC = O(N)
+    # SC = O(1)
 
-    MAX_LIMIT = 100
-    
     result = ["No", "Yes"]
-    dimension = [0 for _ in range(MAX_LIMIT+1)]
+    max_end = 0
+    min_start = float("inf")
 
     for x1, x2 in lines:
-        for i in range(x1, x2+1):
-            dimension[i] += 1
+        min_start = min(min_start, x2)
+        max_end = max(max_end, x1)
+
+    if min_start < max_end:
+        return result[0]
     
-    for x in dimension:
-        if x == n:
-            return result[1]
-    
-    return result[0]
+    return result[1]
 
 
 if __name__ == "__main__":
