@@ -5,21 +5,20 @@ def are_they_overlap(n:int, lines:list[int]) -> str:
     result = ["No", "Yes"]
 
     for i in range(n):
-        x1, y1 = lines[i]
-        min_end = float("inf")
         max_start = 0
+        min_end = float("inf")
 
         for j in range(n):
-            if i == j:
+            if i ==j:
                 continue
-
-            x2, y2 = lines[j]
-            min_end = min(min_end, y2)
-            max_start = max(max_start, x2)
+            
+            x, y = lines[j]
+            max_start = max(max_start, x)
+            min_end = min(min_end, y)
         
         if max_start <= min_end:
             return result[1]
-            
+        
     return result[0]
 
 
