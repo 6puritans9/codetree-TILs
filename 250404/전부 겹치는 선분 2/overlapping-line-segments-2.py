@@ -6,8 +6,8 @@ def are_they_overlap(n:int, lines:list[int]) -> str:
 
     for i in range(n):
         x1, y1 = lines[i]
-        min_end = y1
-        max_start = x1
+        min_end = float("inf")
+        max_start = 0
 
         for j in range(n):
             if i == j:
@@ -17,7 +17,7 @@ def are_they_overlap(n:int, lines:list[int]) -> str:
             min_end = min(min_end, y2)
             max_start = max(max_start, x2)
         
-        if not(max_start < min_end):
+        if max_start <= min_end:
             return result[1]
             
     return result[0]
