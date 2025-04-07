@@ -18,7 +18,7 @@ def bfs(x:int, initial_state:tuple[int]) -> int:
     while queue:
         dist, speed, time = queue.popleft()
         if dist == x and speed == 1:
-            return time
+            return time + 1
 
         if dist >= MAX_DIST or speed >= MAX_SPEED:
             continue
