@@ -9,17 +9,18 @@ def bfs(x:int, initial_state:tuple[int]) -> int:
     # TC = O(MAX_BOUNDARY^2) = O(X^2) = O(10^8) == 1000ms
     # SC = O(X^2) = O(10^8) = 1bytes *10^2 * (10^3)^2  == 100MB
 
-    MAX_BOUNDARY = 2*x
+    MAX_DIST = 2*x
+    MAX_SPEED = 100
     
     queue = deque([initial_state])
-    visited = [[False for _ in range(MAX_BOUNDARY)] for _ in range(MAX_BOUNDARY)]
+    visited = [[False for _ in range(MAX_SPEED)] for _ in range(MAX_DIST)]
 
     while queue:
         dist, speed, time = queue.popleft()
         if dist >= x and speed == 1:
             return time
 
-        if dist >= MAX_BOUNDARY or speed >= MAX_BOUNDARY:
+        if dist >= MAX_DIST or speed >= MAX_SPEED:
             continue
         if visited[dist][speed]:
             continue
